@@ -3,12 +3,20 @@ import {Route, Switch, withRouter} from 'react-router-dom';
 
 import Home from '../view/home/Home';
 import Login from '../view/login/Login';
+import Register from '../view/register/Register';
 
 import AppHeader from './common/AppHeader';
 import AppFooter from './common/AppFooter';
 import {ACCESS_TOKEN} from "../config/Config";
 
 class App extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.showAlert = this.showAlert.bind(this);
+        this.logout = this.logout.bind(this);
+    }
 
     showAlert = (message, type) => {
         const Noty = require('noty');
@@ -24,7 +32,8 @@ class App extends Component {
 
     logout() {
         localStorage.removeItem(ACCESS_TOKEN);
-        window.location.href = "/";
+        this.showAlert("Your are no longer logged in !", "success");
+        this.props.history.push("/");
     }
 
     render() {
@@ -37,8 +46,12 @@ class App extends Component {
                             <Home {...props} showAlert={this.showAlert} notFound={false}/>
                         )}/>
 
+
                         <Route exact path='/login' render={(props) => (
-                            <Login {...props} showAlert={this.showAlert} notFound={false}/>
+                            <Login {...props} showAlert={this.showAlert}/>
+                        )}/>
+                        <Route exact path='/register' render={(props) => (
+                            <Register {...props} showAlert={this.showAlert}/>
                         )}/>
 
                         <Route render={(props) => (

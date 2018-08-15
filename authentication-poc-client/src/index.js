@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter as Router} from 'react-router-dom';
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './assets/css/bootstrap.css';
@@ -11,6 +13,8 @@ import 'noty/lib/noty.css'
 import './assets/css/noty.css'
 
 import App from './app/App';
+
+library.add(fab);
 
 ReactDOM.render(
     <Router>

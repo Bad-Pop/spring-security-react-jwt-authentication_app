@@ -8,12 +8,14 @@ import {
     DropdownToggle,
     Nav,
     Navbar,
-    NavbarBrand,
     NavbarToggler,
     NavItem,
     UncontrolledDropdown
 } from 'reactstrap';
 import {ACCESS_TOKEN} from "../../config/Config";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faUserLock, faDoorOpen, faHome} from '@fortawesome/free-solid-svg-icons';
 
 class AppHeader extends Component {
 
@@ -21,14 +23,10 @@ class AppHeader extends Component {
         isOpen: false
     };
 
-    //TODO PROPS AUTHENTICATED ?
-
     constructor(props) {
         super(props);
 
         this.toggle = this.toggle.bind(this);
-
-        // localStorage.setItem(ACCESS_TOKEN, "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV0sInVzZXJuYW1lIjoiQmFkX1BvcCIsInN1YiI6IjEiLCJpYXQiOjE1MzQzNTQ0OTgsImV4cCI6MTUzNDk1OTI5OH0.DbqOesL-Rchz6NVu1HkVsmgZ7HIB-WynfwUFah2yiZke56D97vKZ0nqFG-UZ3bVgboh_CNBQMqSNstMS6M_r4A")
     }
 
     toggle() {
@@ -48,30 +46,30 @@ class AppHeader extends Component {
             decodedToken = JSON.parse(window.atob(base64));
 
             menuItemsLeft = [
-                <UncontrolledDropdown nav inNavbar>
+                <UncontrolledDropdown nav inNavbar key={1}>
                     <DropdownToggle nav caret>
-                        <img src={"http://cravatar.eu/helmavatar/" + decodedToken.username + "/24.png"} alt="Bad_Pop"
+                        <img src={"http://cravatar.eu/helmavatar/" + decodedToken.username + "/24.png"} alt={decodedToken.username}
                              className="img-fluid avatarHeader"/>
                         {decodedToken.username}
                     </DropdownToggle>
                     <DropdownMenu right>
                         <DropdownItem>
-                            <p>Change password</p>
-                        </DropdownItem>
-                        <DropdownItem onClick={this.props.logout}>
-                            <p>Logout</p>
+                            <Link to="/account/settings/password" className="nav-link text-dark"><FontAwesomeIcon icon={faUserLock}/> Change password</Link>
                         </DropdownItem>
                         <DropdownItem divider/>
+                        <DropdownItem onClick={this.props.logout}>
+                            <p className="nav-link text-dark"><FontAwesomeIcon icon={faDoorOpen}/> Logout</p>
+                        </DropdownItem>
                     </DropdownMenu>
                 </UncontrolledDropdown>
             ];
         } else {
             menuItemsLeft = [
-                <NavItem>
-                    <Link to="/login/" className="nav-link">Login</Link>
+                <NavItem key={1}>
+                    <Link to="/login/" className="nav-link">Sign in</Link>
                 </NavItem>,
-                <NavItem>
-                    <Link to="/register/" className="nav-link">Register</Link>
+                <NavItem key={2}>
+                    <Link to="/register/" className="nav-link">Sign up</Link>
                 </NavItem>
             ]
         }
@@ -79,9 +77,12 @@ class AppHeader extends Component {
         return (
             <div>
                 <Navbar dark expand="md" className="bg-primary fixed-top">
-                    <NavbarBrand><Link to="/" className="navBrand">Authentication POC</Link></NavbarBrand>
+                    <Link to="/" className="navBrand">Authentication POC</Link>
                     <NavbarToggler onClick={this.toggle}/>
                     <Collapse isOpen={this.state.isOpen} navbar>
+                        <Nav className="mr-auto" navbar>
+                            <Link to="/" className="nav-link"><FontAwesomeIcon icon={faHome}/></Link>
+                        </Nav>
                         <Nav className="ml-auto" navbar>
                             {menuItemsLeft}
                         </Nav>

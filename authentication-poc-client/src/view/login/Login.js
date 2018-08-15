@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import {ACCESS_TOKEN} from "../../config/Config";
 import {login} from "../../api/Api";
 
 class Login extends Component {
+
+    //TODO REMEMBER ME /!\
 
     state = {
         loginRequest: {
@@ -72,14 +74,14 @@ class Login extends Component {
                                                     <label htmlFor="inputEmail">Email address or username</label>
                                                     <input type="text" id="inputEmail" className="form-control"
                                                            placeholder="Email address or username" required
-                                                           onChange={this.updateUsernameOrEmail}
+                                                           onChange={this.updateUsernameOrEmail} autoComplete="on"
                                                     />
                                                 </div>
 
-                                                <div className="mb-4">
+                                                <div className="mb-4 mt-4">
                                                     <label htmlFor="inputPassword">Password</label>
                                                     <input type="password" id="inputPassword" className="form-control"
-                                                           placeholder="Password" required
+                                                           placeholder="Password" required autoComplete="on"
                                                            onChange={this.updatePassword}
                                                     />
                                                 </div>
@@ -87,6 +89,7 @@ class Login extends Component {
                                                 <button className="btn btn-lg btn-primary btn-block text-uppercase mb-4"
                                                         type="submit">Sign in
                                                 </button>
+                                                <p className="text-muted">Or <Link to="/register" className="text-primary">register now !</Link></p>
                                             </div>
                                     }
                                 </div>
