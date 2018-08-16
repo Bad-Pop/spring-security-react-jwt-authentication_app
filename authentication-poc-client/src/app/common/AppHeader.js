@@ -50,11 +50,17 @@ class AppHeader extends Component {
                     <DropdownToggle nav caret>
                         <img src={"http://cravatar.eu/helmavatar/" + decodedToken.username + "/24.png"} alt={decodedToken.username}
                              className="img-fluid avatarHeader"/>
-                        {decodedToken.username}
+                        {/*{decodedToken.username}*/}
                     </DropdownToggle>
                     <DropdownMenu right>
                         <DropdownItem>
-                            <Link to="/account/settings/password" className="nav-link text-dark"><FontAwesomeIcon icon={faUserLock}/> Change password</Link>
+                            <p className="nav-link text-center text-muted">
+                                Signed in as <b>{decodedToken.username}</b>
+                            </p>
+                        </DropdownItem>
+                        <DropdownItem divider/>
+                        <DropdownItem>
+                            <Link to="/account/settings/" className="nav-link text-dark"><FontAwesomeIcon icon={faUserLock}/> Settings</Link>
                         </DropdownItem>
                         <DropdownItem divider/>
                         <DropdownItem onClick={this.props.logout}>

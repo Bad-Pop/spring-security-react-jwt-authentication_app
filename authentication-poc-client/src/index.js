@@ -5,6 +5,7 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
+
 import 'bootstrap/dist/css/bootstrap.css';
 import './assets/css/bootstrap.css';
 import './assets/css/w3.css';

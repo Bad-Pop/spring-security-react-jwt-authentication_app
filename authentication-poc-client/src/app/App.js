@@ -4,6 +4,7 @@ import {Route, Switch, withRouter} from 'react-router-dom';
 import Home from '../view/home/Home';
 import Login from '../view/login/Login';
 import Register from '../view/register/Register';
+import Settings from '../view/account/settings/Settings';
 
 import AppHeader from './common/AppHeader';
 import AppFooter from './common/AppFooter';
@@ -46,6 +47,9 @@ class App extends Component {
                             <Home {...props} showAlert={this.showAlert} notFound={false}/>
                         )}/>
 
+                        <Route exact path='/account/settings' render={(props) => (
+                            <Settings {...props} showAlert={this.showAlert}/>
+                        )}/>
 
                         <Route exact path='/login' render={(props) => (
                             <Login {...props} showAlert={this.showAlert}/>
