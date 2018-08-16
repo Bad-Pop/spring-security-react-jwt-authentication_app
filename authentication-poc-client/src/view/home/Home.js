@@ -3,6 +3,10 @@ import {withRouter} from 'react-router-dom';
 
 class Home extends Component {
 
+    componentDidMount(){
+        document.title = "Home page"
+    }
+
 
     componentDidUpdate() {
         if(this.props.notFound === true){

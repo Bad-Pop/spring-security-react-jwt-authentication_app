@@ -5,6 +5,7 @@ import Home from '../view/home/Home';
 import Login from '../view/login/Login';
 import Register from '../view/register/Register';
 import Settings from '../view/account/settings/Settings';
+import NotFound from '../view/notfound/NotFound';
 
 import AppHeader from './common/AppHeader';
 import AppFooter from './common/AppFooter';
@@ -46,11 +47,6 @@ class App extends Component {
                         <Route exact path='/' render={(props) => (
                             <Home {...props} showAlert={this.showAlert} notFound={false}/>
                         )}/>
-
-                        <Route exact path='/account/settings' render={(props) => (
-                            <Settings {...props} showAlert={this.showAlert}/>
-                        )}/>
-
                         <Route exact path='/login' render={(props) => (
                             <Login {...props} showAlert={this.showAlert}/>
                         )}/>
@@ -58,8 +54,15 @@ class App extends Component {
                             <Register {...props} showAlert={this.showAlert}/>
                         )}/>
 
+
+
+                        <Route exact path='/me/settings/:render(account|security)' render={(props) => (
+                            <Settings {...props} showAlert={this.showAlert}/>
+                        )}/>
+
+
                         <Route render={(props) => (
-                            <Home {...props} showAlert={this.showAlert} notFound={true}/>
+                            <NotFound {...props} showAlert={this.showAlert}/>
                         )}/>
                     </Switch>
                 </div>

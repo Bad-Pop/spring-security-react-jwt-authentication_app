@@ -23,6 +23,10 @@ class Register extends Component {
         }
     };
 
+    componentDidMount(){
+        document.title = "Sign up"
+    }
+
     updateUsername = event => {
         let req = this.state.registerRequest;
         req.username = event.target.value;
@@ -42,7 +46,6 @@ class Register extends Component {
 
         let passwordPattern = this.state.passwordPattern;
 
-        // let passwordInput = document.getElementById("inputPassword");
         const lowerCase = /[a-z]/g;
         if(req.password.match(lowerCase)){
             document.getElementById("lowerCase").classList.remove("text-danger");
@@ -149,6 +152,7 @@ class Register extends Component {
                                             :
                                             <div>
                                                 <h1 className="card-title text-center">Sign Up</h1>
+
                                                 <div>
                                                     <label htmlFor="inputUsername">Username</label>
                                                     <input type="text" id="inputUsername" className="form-control"
@@ -185,6 +189,9 @@ class Register extends Component {
                                                 </button>
                                                 <p className="text-muted">Already registed ? <Link to="/login"
                                                                                                    className="text-primary">Login now !</Link></p>
+                                                <small id="emailHelp" className="form-text text-muted">
+                                                    We'll never share your information with anyone else.
+                                                </small>
                                             </div>
                                     }
                                 </div>

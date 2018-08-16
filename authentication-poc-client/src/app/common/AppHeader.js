@@ -53,14 +53,14 @@ class AppHeader extends Component {
                         {/*{decodedToken.username}*/}
                     </DropdownToggle>
                     <DropdownMenu right>
-                        <DropdownItem>
+                        <DropdownItem disabled>
                             <p className="nav-link text-center text-muted">
                                 Signed in as <b>{decodedToken.username}</b>
                             </p>
                         </DropdownItem>
                         <DropdownItem divider/>
                         <DropdownItem>
-                            <Link to="/account/settings/" className="nav-link text-dark"><FontAwesomeIcon icon={faUserLock}/> Settings</Link>
+                            <Link to="/me/settings/account" className="nav-link text-dark"><FontAwesomeIcon icon={faUserLock}/> Settings</Link>
                         </DropdownItem>
                         <DropdownItem divider/>
                         <DropdownItem onClick={this.props.logout}>

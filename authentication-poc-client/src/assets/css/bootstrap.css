@@ -10542,7 +10542,7 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
 }
 
 .app {
-    margin-top: 10em;
+    margin-top: 5em;
 }
 
 .navBrand {
@@ -10588,4 +10588,23 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
 
 .card-signin .card-body {
     padding: 2rem;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.setting-menu .active{
+    height: 100%;
+    background: linear-gradient(90deg, #fff 98%, #555 5%);
+    border-radius: 0px!important;
+    border-width: 1px!important;
+    border-bottom-color: #e3e6ea!important;
+}
+
+.setting-menu .menu-item {
+    margin-top: 0.2em;
 }

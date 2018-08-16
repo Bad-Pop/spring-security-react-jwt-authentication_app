@@ -15,6 +15,10 @@ class Login extends Component {
         showLoading: false,
     };
 
+    componentDidMount(){
+        document.title = "Sign in"
+    }
+
     updateUsernameOrEmail = event => {
         let req = this.state.loginRequest;
         req.usernameOrEmail = event.target.value;
