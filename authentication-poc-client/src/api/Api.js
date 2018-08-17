@@ -45,7 +45,7 @@ export function register(registerRequest) {
 
 export function updatePassword(updatePasswordRequest) {
     return sendRequest({
-        url: API_BASE_URL + "/secure/account/update-password",
+        url: API_BASE_URL + "/secure/account/settings/update-password",
         method: 'POST',
         body: JSON.stringify(updatePasswordRequest)
     });

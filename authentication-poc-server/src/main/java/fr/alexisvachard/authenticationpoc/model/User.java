@@ -36,6 +36,10 @@ public class User {
     @Size(max = 100)
     private String password;
 
+    private boolean isUsingTwoFA;
+
+    private String twoFASecret;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "USER_ROLE",
@@ -51,6 +55,15 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.isUsingTwoFA = false;
+    }
+
+    public User(String username, String email, String password, boolean isUsingTwoFA, String twoFASecret) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.isUsingTwoFA = isUsingTwoFA;
+        this.twoFASecret = twoFASecret;
     }
 
     public Long getId() {
@@ -91,5 +104,21 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isUsingTwoFA() {
+        return isUsingTwoFA;
+    }
+
+    public void setUsingTwoFA(boolean usingTwoFA) {
+        isUsingTwoFA = usingTwoFA;
+    }
+
+    public String getTwoFASecret() {
+        return twoFASecret;
+    }
+
+    public void setTwoFASecret(String twoFASecret) {
+        this.twoFASecret = twoFASecret;
     }
 }
