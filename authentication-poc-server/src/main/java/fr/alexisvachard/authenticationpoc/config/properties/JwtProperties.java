@@ -9,6 +9,7 @@ public class JwtProperties {
 
     private String secret;
     private int expirationInMs;
+    private Long rememberMeExpirationInMs;
 
     public String getSecret() {
         return secret;
@@ -24,5 +25,13 @@ public class JwtProperties {
 
     public void setExpirationInMs(int expirationInMs) {
         this.expirationInMs = expirationInMs;
+    }
+
+    public Long getRememberMeExpirationInMs() {
+        return rememberMeExpirationInMs;
+    }
+
+    public void setRememberMeExpirationInMs(Long rememberMeExpirationInMs) {
+        this.rememberMeExpirationInMs = rememberMeExpirationInMs;
     }
 }

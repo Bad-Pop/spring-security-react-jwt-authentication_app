@@ -226,21 +226,21 @@ class Account extends Component {
                                 <div className="form-group">
                                     <label htmlFor="inputOldPassword">Your password</label>
                                     <input type="password" className="form-control" id="inputOldPassword"
-                                           placeholder="Enter your password" required
+                                           placeholder="Enter your password" required autoComplete="on"
                                            onChange={e => this.updateOldPassword(e)}
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="inputNewPassword">New password</label>
                                     <input type="password" className="form-control" id="inputNewPassword"
-                                           placeholder="Enter your new password" required
+                                           placeholder="Enter your new password" required autoComplete="on"
                                            onChange={e => this.updateNewPassword(e)}
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="inputConfirmNewPassword">Confirm new password</label>
                                     <input type="password" className="form-control" id="inputConfirmNewPassword"
-                                           placeholder="Enter your new password again" required
+                                           placeholder="Enter your new password again" required autoComplete="on"
                                            onChange={e => this.updateConfirmNewPassword(e)}
                                     />
                                 </div>

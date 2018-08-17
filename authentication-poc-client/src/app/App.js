@@ -13,11 +13,19 @@ import {ACCESS_TOKEN} from "../config/Config";
 
 class App extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.showAlert = this.showAlert.bind(this);
         this.logout = this.logout.bind(this);
+    }
+
+    componentDidMount() {
+        this.isAuthenticated();
+    }
+
+    componentDidUpdate() {
+        this.isAuthenticated();
     }
 
     showAlert = (message, type) => {
@@ -38,7 +46,46 @@ class App extends Component {
         this.props.history.push("/");
     }
 
+    isAuthenticated() {
+        if (localStorage.getItem(ACCESS_TOKEN)) {
+            let token = localStorage.getItem(ACCESS_TOKEN);
+            let base64Url = token.split('.')[1];
+            let base64 = base64Url.replace('-', '+').replace('_', '/');
+            token = JSON.parse(window.atob(base64));
+
+            // console.log(exp, Math.floor(Date.now()/1000));
+            if (token.exp <= Math.floor(Date.now() / 1000)) {
+                localStorage.removeItem(ACCESS_TOKEN);
+                this.showAlert("Your session has expired !", "info");
+                this.props.history.push("/");
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     render() {
+
+        let routes;
+        if (this.isAuthenticated()) {
+            routes = [
+                <Route key={1} exact path='/me/settings/:render(account|security)' render={(props) => (
+                    <Settings {...props} showAlert={this.showAlert}/>
+                )}/>
+            ];
+        } else {
+            routes = [
+                <Route key={1} exact path='/login' render={(props) => (
+                    <Login {...props} showAlert={this.showAlert}/>
+                )}/>,
+                <Route key={2} exact path='/register' render={(props) => (
+                <Register {...props} showAlert={this.showAlert}/>
+            )}/>
+            ]
+        }
+
         return (
             <div>
                 <AppHeader logout={this.logout}/>
@@ -47,19 +94,8 @@ class App extends Component {
                         <Route exact path='/' render={(props) => (
                             <Home {...props} showAlert={this.showAlert} notFound={false}/>
                         )}/>
-                        <Route exact path='/login' render={(props) => (
-                            <Login {...props} showAlert={this.showAlert}/>
-                        )}/>
-                        <Route exact path='/register' render={(props) => (
-                            <Register {...props} showAlert={this.showAlert}/>
-                        )}/>
 
-
-
-                        <Route exact path='/me/settings/:render(account|security)' render={(props) => (
-                            <Settings {...props} showAlert={this.showAlert}/>
-                        )}/>
-
+                        {routes}
 
                         <Route render={(props) => (
                             <NotFound {...props} showAlert={this.showAlert}/>

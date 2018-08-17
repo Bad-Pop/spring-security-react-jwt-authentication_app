@@ -52,7 +52,7 @@ public class AuthenticationService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtTokenProvider.generateToken(authentication);
+        String jwt = jwtTokenProvider.generateToken(authentication, loginRequest);
 
         return ResponseEntity.ok(new JwtAuthenticationResponseDto(jwt));
     }

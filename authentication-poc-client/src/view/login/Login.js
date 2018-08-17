@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {withRouter, Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {ACCESS_TOKEN} from "../../config/Config";
 import {login} from "../../api/Api";
 
@@ -10,12 +10,13 @@ class Login extends Component {
     state = {
         loginRequest: {
             usernameOrEmail: "",
-            password: ""
+            password: "",
+            rememberMe: false
         },
         showLoading: false,
     };
 
-    componentDidMount(){
+    componentDidMount() {
         document.title = "Sign in"
     }
 
@@ -31,6 +32,12 @@ class Login extends Component {
         this.setState({loginRequest: req});
     };
 
+    updateRememberMe = event => {
+        let req = this.state.loginRequest;
+        req.rememberMe = !req.rememberMe;
+        this.setState({loginRequest: req});
+    };
+
     requestLogin = event => {
         event.preventDefault();
         this.setState({showLoading: true});
@@ -40,11 +47,11 @@ class Login extends Component {
                 this.props.showAlert("You are now logged in !", "success");
                 this.props.history.push("/");
             }).catch(error => {
-                if(error.status === 401){
-                    this.props.showAlert("Your username or password is incorrect. Please try again !", "info");
-                } else {
-                    this.props.showAlert("Sorry! Something went wrong. Please try again!", "error");
-                }
+            if (error.status === 401) {
+                this.props.showAlert("Your username or password is incorrect. Please try again !", "info");
+            } else {
+                this.props.showAlert("Sorry! Something went wrong. Please try again!", "error");
+            }
             this.setState({showLoading: false});
         });
     };
@@ -90,10 +97,22 @@ class Login extends Component {
                                                     />
                                                 </div>
 
+                                                <div className="mb-4 mt-4 custom-control custom-checkbox mr-sm-2">
+                                                    <input type="checkbox" className="custom-control-input"
+                                                           id="rememberMe"
+                                                            onChange={this.updateRememberMe}
+                                                    />
+                                                    <label className="custom-control-label" htmlFor="rememberMe">
+                                                        Remember me
+                                                    </label>
+                                                </div>
+
                                                 <button className="btn btn-lg btn-primary btn-block text-uppercase mb-4"
                                                         type="submit">Sign in
                                                 </button>
-                                                <p className="text-muted">Or <Link to="/register" className="text-primary">register now !</Link></p>
+                                                <p className="text-muted">Or <Link to="/register"
+                                                                                   className="text-primary">register now
+                                                    !</Link></p>
                                             </div>
                                     }
                                 </div>

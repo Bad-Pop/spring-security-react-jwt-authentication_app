@@ -2,6 +2,7 @@ package fr.alexisvachard.authenticationpoc.security.jwt;
 
 import fr.alexisvachard.authenticationpoc.config.properties.JwtProperties;
 import fr.alexisvachard.authenticationpoc.security.user.UserPrincipal;
+import fr.alexisvachard.authenticationpoc.web.common.dto.auth.LoginRequestDto;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +20,18 @@ public class JwtTokenProvider {
     @Autowired
     private JwtProperties jwtProperties;
 
-    public String generateToken(Authentication auth) {
+    public String generateToken(Authentication auth, LoginRequestDto loginRequest) {
 
         UserPrincipal userPrincipal = (UserPrincipal) auth.getPrincipal();
 
         Date now = new Date();
-        Date expirationDate = new Date(now.getTime() + jwtProperties.getExpirationInMs());
+        Date expirationDate;
+
+        if(loginRequest.isRememberMe()){
+            expirationDate = new Date(now.getTime() + jwtProperties.getRememberMeExpirationInMs());
+        } else {
+            expirationDate = new Date(now.getTime() + jwtProperties.getExpirationInMs());
+        }
 
         return Jwts.builder()
                 .claim("role", userPrincipal.getAuthorities().toArray())
@@ -52,6 +59,7 @@ public class JwtTokenProvider {
             Jwts.parser()
                     .setSigningKey(jwtProperties.getSecret())
                     .parseClaimsJws(authToken);
+            //TODO CHECK EXPIRATION
             return true;
         } catch (SignatureException ex) {
             logger.error("Invalid JWT signature");

@@ -10,12 +10,21 @@ public class LoginRequestDto {
     @NotBlank
     private String password;
 
+    private boolean rememberMe;
+
     public LoginRequestDto() {
     }
 
     public LoginRequestDto(@NotBlank String usernameOrEmail, @NotBlank String password) {
         this.usernameOrEmail = usernameOrEmail;
         this.password = password;
+        rememberMe = false;
+    }
+
+    public LoginRequestDto(@NotBlank String usernameOrEmail, @NotBlank String password, boolean rememberMe) {
+        this.usernameOrEmail = usernameOrEmail;
+        this.password = password;
+        this.rememberMe = rememberMe;
     }
 
     public String getUsernameOrEmail() {
@@ -32,5 +41,13 @@ public class LoginRequestDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
     }
 }
