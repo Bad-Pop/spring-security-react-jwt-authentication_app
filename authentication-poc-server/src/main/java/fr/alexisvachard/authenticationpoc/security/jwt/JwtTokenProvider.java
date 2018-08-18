@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
@@ -27,7 +27,7 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date expirationDate;
 
-        if(loginRequest.isRememberMe()){
+        if (loginRequest.isRememberMe()) {
             expirationDate = new Date(now.getTime() + jwtProperties.getRememberMeExpirationInMs());
         } else {
             expirationDate = new Date(now.getTime() + jwtProperties.getExpirationInMs());
@@ -59,7 +59,6 @@ public class JwtTokenProvider {
             Jwts.parser()
                     .setSigningKey(jwtProperties.getSecret())
                     .parseClaimsJws(authToken);
-            //TODO CHECK EXPIRATION
             return true;
         } catch (SignatureException ex) {
             logger.error("Invalid JWT signature");

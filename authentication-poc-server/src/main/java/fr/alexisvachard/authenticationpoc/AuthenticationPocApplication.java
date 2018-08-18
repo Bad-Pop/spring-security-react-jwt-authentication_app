@@ -12,19 +12,19 @@ import java.util.TimeZone;
 
 @SpringBootApplication
 @EntityScan(basePackageClasses = {
-		AuthenticationPocApplication.class,
-		Jsr310JpaConverters.class
+        AuthenticationPocApplication.class,
+        Jsr310JpaConverters.class
 })
 @ComponentScan("fr.alexisvachard.authenticationpoc")
 @EnableJpaRepositories(basePackages = "fr.alexisvachard.authenticationpoc.repository")
 public class AuthenticationPocApplication {
 
-	@PostConstruct
-	void init(){
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC+2"));
-	}
+    @PostConstruct
+    void init() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC+2"));
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(AuthenticationPocApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AuthenticationPocApplication.class, args);
+    }
 }

@@ -19,7 +19,7 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping(path = "/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequest) throws AppException {
         return authenticationService.authenticateUser(loginRequest);
     }
 

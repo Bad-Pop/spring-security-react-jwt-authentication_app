@@ -12,6 +12,8 @@ public class LoginRequestDto {
 
     private boolean rememberMe;
 
+    private int twoFACode;
+
     public LoginRequestDto() {
     }
 
@@ -25,6 +27,13 @@ public class LoginRequestDto {
         this.usernameOrEmail = usernameOrEmail;
         this.password = password;
         this.rememberMe = rememberMe;
+    }
+
+    public LoginRequestDto(@NotBlank String usernameOrEmail, @NotBlank String password, boolean rememberMe, int twoFACode) {
+        this.usernameOrEmail = usernameOrEmail;
+        this.password = password;
+        this.rememberMe = rememberMe;
+        this.twoFACode = twoFACode;
     }
 
     public String getUsernameOrEmail() {
@@ -49,5 +58,13 @@ public class LoginRequestDto {
 
     public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
+    }
+
+    public int getTwoFACode() {
+        return twoFACode;
+    }
+
+    public void setTwoFACode(int twoFACode) {
+        this.twoFACode = twoFACode;
     }
 }

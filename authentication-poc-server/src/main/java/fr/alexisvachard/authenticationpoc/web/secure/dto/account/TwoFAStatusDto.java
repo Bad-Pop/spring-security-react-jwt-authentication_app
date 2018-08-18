@@ -2,20 +2,20 @@ package fr.alexisvachard.authenticationpoc.web.secure.dto.account;
 
 public class TwoFAStatusDto {
 
-    private boolean isUsing2FA;
+    private boolean isUsingTwoFA;
 
     public TwoFAStatusDto() {
     }
 
-    public TwoFAStatusDto(boolean isUsing2FA) {
-        this.isUsing2FA = isUsing2FA;
+    public TwoFAStatusDto(boolean isUsingTwoFA) {
+        this.isUsingTwoFA = isUsingTwoFA;
     }
 
-    public boolean isUsing2FA() {
-        return isUsing2FA;
+    public boolean isUsingTwoFA() {
+        return isUsingTwoFA;
     }
 
-    public void setUsing2FA(boolean using2FA) {
-        isUsing2FA = using2FA;
+    public void setUsingTwoFA(boolean usingTwoFA) {
+        isUsingTwoFA = usingTwoFA;
     }
 }

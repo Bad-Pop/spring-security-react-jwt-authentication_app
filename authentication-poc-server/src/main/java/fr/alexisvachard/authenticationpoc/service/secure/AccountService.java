@@ -1,13 +1,20 @@
 package fr.alexisvachard.authenticationpoc.service.secure;
 
+import com.google.zxing.WriterException;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import fr.alexisvachard.authenticationpoc.exception.AppException;
 import fr.alexisvachard.authenticationpoc.model.User;
 import fr.alexisvachard.authenticationpoc.repository.UserRepository;
 import fr.alexisvachard.authenticationpoc.service.mail.MailService;
 import fr.alexisvachard.authenticationpoc.web.common.dto.ApiResponseDto;
+import fr.alexisvachard.authenticationpoc.web.secure.dto.account.EnableTwoFARequestDto;
+import fr.alexisvachard.authenticationpoc.web.secure.dto.account.EnableTwoFAStepOneResponseDto;
+import fr.alexisvachard.authenticationpoc.web.secure.dto.account.TwoFAStatusDto;
 import fr.alexisvachard.authenticationpoc.web.secure.dto.account.UpdatePasswordRequestDto;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,17 +28,19 @@ public class AccountService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private MailService mailService;
+    private QRCodeGeneratorService qrCodeGeneratorService;
 
     @Autowired
-    public AccountService(UserRepository userRepository, PasswordEncoder passwordEncoder, MailService mailService) {
+    public AccountService(UserRepository userRepository, PasswordEncoder passwordEncoder, MailService mailService, QRCodeGeneratorService qrCodeGeneratorService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.mailService = mailService;
+        this.qrCodeGeneratorService = qrCodeGeneratorService;
     }
 
     public ResponseEntity<?> updatePassword(UpdatePasswordRequestDto updatePasswordRequest, String username) throws AppException, IOException, TemplateException {
 
-        if(!StringUtils.hasText(username)){
+        if (!StringUtils.hasText(username)) {
             return ResponseEntity.badRequest().body(new ApiResponseDto(false, "Invalid session token !"));
         }
 
@@ -53,5 +62,93 @@ public class AccountService {
         }
 
         return ResponseEntity.ok().body(new ApiResponseDto(true, "Your password has been changed !"));
+    }
+
+
+    public ResponseEntity<?> check2FAUsage(String username) throws AppException {
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException("Unable to retrieve this user !"));
+
+        return new ResponseEntity<>(new TwoFAStatusDto(user.isUsingTwoFA()), HttpStatus.OK);
+    }
+
+
+    //TODO RESCUE PASSWORDS
+    public ResponseEntity<?> enable2FAAuthentication(String username, int step, EnableTwoFARequestDto enableTwoFARequestDto) throws AppException, WriterException, IOException {
+
+        if (step == 0 || step == 1) {
+
+            User user = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new AppException("Unable to retrieve this user !"));
+
+            user.setUsingTwoFA(true);
+
+            GoogleAuthenticator gAuth = new GoogleAuthenticator();
+            final GoogleAuthenticatorKey key = gAuth.createCredentials();
+
+            user.setTwoFASecret(key.getKey());
+
+            userRepository.save(user);
+
+            byte[] qrCodeByteData = qrCodeGeneratorService.generate2FAQRCode(user.getUsername(), user.getTwoFASecret());
+
+            return new ResponseEntity<>(new EnableTwoFAStepOneResponseDto(true, qrCodeByteData), HttpStatus.OK);
+
+        } else if (step == 2) {
+
+            User user = userRepository.findByUsername(username)
+                    .orElseThrow(() -> new AppException("Unable to retrieve this user !"));
+
+            if (StringUtils.hasText(enableTwoFARequestDto.getPassword())
+                    && enableTwoFARequestDto.getTwoFACode() > 0) {
+
+                if (Integer.toString(enableTwoFARequestDto.getTwoFACode()).length() == 5
+                        || Integer.toString(enableTwoFARequestDto.getTwoFACode()).length() == 6) {
+
+                    if (passwordEncoder.matches(enableTwoFARequestDto.getPassword(), user.getPassword())) {
+
+                        GoogleAuthenticator gAuth = new GoogleAuthenticator();
+                        String twoFAUserKey = user.getTwoFASecret();
+
+                        if (gAuth.authorize(twoFAUserKey, enableTwoFARequestDto.getTwoFACode())) {
+                            return new ResponseEntity<>(new ApiResponseDto(true, "2FA is now enabled for your account !"), HttpStatus.OK);
+                        } else {
+                            user.setUsingTwoFA(false);
+                            user.setTwoFASecret("");
+
+                            userRepository.save(user);
+
+                            throw new AppException("Invalid verification code !");
+                        }
+
+                    } else {
+                        throw new AppException("Your password does not match ! Please try again.");
+                    }
+                } else {
+                    throw new AppException("Invalid 2FA code. Please try again later and send a valid code.");
+                }
+            } else {
+                throw new AppException("Bad Request. Please confirm your password and give a 2FA valid code !");
+            }
+
+        } else {
+            throw new AppException("Undefined step ! Your request is invalid please try again later...");
+        }
+    }
+
+
+    //TODO PASSWORD CONFIRMATION
+    public ResponseEntity<?> disable2FAAuthentication(String username) throws AppException {
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException("Unable to retrieve this user !"));
+
+        user.setUsingTwoFA(false);
+        user.setTwoFASecret("");
+
+        userRepository.save(user);
+
+        return new ResponseEntity<>(new ApiResponseDto(true, "Two Factor Authentication is now disabled !"), HttpStatus.OK);
     }
 }

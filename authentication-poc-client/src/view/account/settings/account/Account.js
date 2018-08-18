@@ -210,15 +210,15 @@ class Account extends Component {
     render(){
         return(
             <div>
-                <h2>Account settings</h2>
-                <h3>Change password</h3>
+                <h1>Account settings</h1>
+                <h2>Change password</h2>
                 <hr/>
                 <div>
                     {
                         this.state.showLoading
                         ?
                             <div className="align-content-center text-center">
-                                <h5>Updating your password</h5>
+                                <h3>Updating your password</h3>
                                 <i className="material-icons w3-xxxlarge w3-spin align-content-center">refresh</i>
                             </div>
                         :

@@ -16,7 +16,7 @@ import java.util.Optional;
 public class AuditingConfig {
 
     @Bean
-    public AuditorAware<Long> auditorProvider(){
+    public AuditorAware<Long> auditorProvider() {
         return new SpringSecurityAuditAwareImpl();
     }
 }

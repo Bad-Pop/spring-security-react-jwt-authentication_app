@@ -50,3 +50,32 @@ export function updatePassword(updatePasswordRequest) {
         body: JSON.stringify(updatePasswordRequest)
     });
 }
+
+export function check2FAUsage() {
+    return sendRequest({
+        url: API_BASE_URL + "/secure/account/settings/2fa/status",
+        method: 'GET'
+    });
+}
+
+export function enable2FAStepOne() {
+    return sendRequest({
+        url: API_BASE_URL + "/secure/account/settings/2fa/enable?step=1",
+        method: 'POST'
+    });
+}
+
+export function enable2FAStepTwo(enableTwoFARequest) {
+    return sendRequest({
+        url: API_BASE_URL + "/secure/account/settings/2fa/enable?step=2",
+        method: 'POST',
+        body: JSON.stringify(enableTwoFARequest)
+    });
+}
+
+export function disable2FA() {
+    return sendRequest({
+        url: API_BASE_URL + "/secure/account/settings/2fa/disable",
+        method: 'GET'
+    });
+}

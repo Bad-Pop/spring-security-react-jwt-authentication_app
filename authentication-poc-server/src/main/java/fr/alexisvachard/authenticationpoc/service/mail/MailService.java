@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
@@ -34,6 +35,7 @@ public class MailService {
     }
 
 
+    @Async("threadPoolTaskExecutor")
     public void sendPasswordUpdatedNotification(User user) throws IOException, TemplateException {
 
         Map<String, String> model = new HashMap<>();
