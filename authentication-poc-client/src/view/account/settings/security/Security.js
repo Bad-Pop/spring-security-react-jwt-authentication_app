@@ -152,6 +152,9 @@ class Security extends Component {
             }).catch(error => {
             if (error.message && error.success === false) {
                 this.props.showAlert(error.message, "error");
+            } else if(error.message === "Your password does not match ! Please try again."){
+                this.props.showAlert(error.message, "error");
+                this.cancelEnable2FA();
             } else {
                 this.props.showAlert("Sorry! Something went wrong. Please try again!", "error");
             }

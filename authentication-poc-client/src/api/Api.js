@@ -79,3 +79,18 @@ export function disable2FA() {
         method: 'GET'
     });
 }
+
+export function requestResetPassword(email){
+    return sendRequest({
+        url: API_BASE_URL + "/public/reset-password?email=" + email,
+        method: 'GET'
+    });
+}
+
+export function resetPassword(resetPasswordRequest){
+    return sendRequest({
+        url: API_BASE_URL + "/public/reset-password",
+        method: 'POST',
+        body: JSON.stringify(resetPasswordRequest)
+    });
+}

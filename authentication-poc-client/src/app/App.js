@@ -5,6 +5,7 @@ import Home from '../view/home/Home';
 import Login from '../view/login/Login';
 import Register from '../view/register/Register';
 import Settings from '../view/account/settings/Settings';
+import ResetPassword from '../view/resetPassword/ResetPassword';
 import NotFound from '../view/notfound/NotFound';
 
 import AppHeader from './common/AppHeader';
@@ -81,8 +82,11 @@ class App extends Component {
                     <Login {...props} showAlert={this.showAlert}/>
                 )}/>,
                 <Route key={2} exact path='/register' render={(props) => (
-                <Register {...props} showAlert={this.showAlert}/>
-            )}/>
+                    <Register {...props} showAlert={this.showAlert}/>
+                )}/>,
+                <Route key={3} exact path='/reset-password/:token/:id' render={(props) => (
+                    <ResetPassword {...props} showAlert={this.showAlert}/>
+                )}/>
             ]
         }
 

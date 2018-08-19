@@ -10608,3 +10608,7 @@ hr {
 .setting-menu .menu-item {
     margin-top: 0.2em;
 }
+
+.cursor-pointer {
+    cursor: pointer!important;
+}

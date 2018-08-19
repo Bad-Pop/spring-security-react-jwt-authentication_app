@@ -63,7 +63,7 @@ class AppHeader extends Component {
                             <Link to="/me/settings/account" className="nav-link text-dark"><FontAwesomeIcon icon={faUserLock}/> Settings</Link>
                         </DropdownItem>
                         <DropdownItem divider/>
-                        <DropdownItem onClick={this.props.logout}>
+                        <DropdownItem onClick={this.props.logout} className="cursor-pointer">
                             <p className="nav-link text-dark"><FontAwesomeIcon icon={faDoorOpen}/> Logout</p>
                         </DropdownItem>
                     </DropdownMenu>

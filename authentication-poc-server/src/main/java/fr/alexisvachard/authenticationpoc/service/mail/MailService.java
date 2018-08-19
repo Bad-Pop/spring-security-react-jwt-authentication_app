@@ -1,5 +1,6 @@
 package fr.alexisvachard.authenticationpoc.service.mail;
 
+import fr.alexisvachard.authenticationpoc.config.properties.FrontProperties;
 import fr.alexisvachard.authenticationpoc.config.properties.MailProperties;
 import fr.alexisvachard.authenticationpoc.model.User;
 import freemarker.template.Configuration;
@@ -24,12 +25,14 @@ public class MailService {
     private MailProperties mailProperties;
     private JavaMailSender javaMailSender;
     private Configuration freemarkerConfiguration;
+    private FrontProperties frontProperties;
 
     @Autowired
-    public MailService(MailProperties mailProperties, JavaMailSender javaMailSender, Configuration freemarkerConfiguration) {
+    public MailService(MailProperties mailProperties, JavaMailSender javaMailSender, Configuration freemarkerConfiguration, FrontProperties frontProperties) {
         this.mailProperties = mailProperties;
         this.javaMailSender = javaMailSender;
         this.freemarkerConfiguration = freemarkerConfiguration;
+        this.frontProperties = frontProperties;
 
         freemarkerConfiguration.setClassForTemplateLoading(this.getClass(), mailProperties.getTemplateBasePackage());
     }
@@ -42,7 +45,7 @@ public class MailService {
         model.put("username", user.getUsername());
 
         Date now = new Date();
-        SimpleDateFormat formater = new SimpleDateFormat("'le' dd/MM/yyyy");
+        SimpleDateFormat formater = new SimpleDateFormat("'on' MM/dd/yyyy");
 
         model.put("date", formater.format(now));
 
@@ -50,7 +53,29 @@ public class MailService {
 
         MimeMessagePreparator preparator = mimeMessage -> {
             MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
-            message.setSubject("Modification de votre mot de passe");
+            message.setSubject("Your password has been changed");
+            message.setTo(user.getEmail());
+            message.setFrom(mailProperties.getFrom());
+            message.setText(mailBody, true);
+        };
+
+        javaMailSender.send(preparator);
+    }
+
+    @Async("threadPoolTaskExecutor")
+    public void sendResetPasswordLink(User user, String token) throws IOException, TemplateException {
+
+        Map<String, String> model = new HashMap<>();
+        model.put("username", user.getUsername());
+
+        String url = frontProperties.getHost() + "/reset-password/" + token + "/" + user.getId();
+        model.put("url", url);
+
+        String mailBody = FreeMarkerTemplateUtils.processTemplateIntoString(freemarkerConfiguration.getTemplate("resetPassword.ftl"), model);
+
+        MimeMessagePreparator preparator = mimeMessage -> {
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
+            message.setSubject("Reset Your password");
             message.setTo(user.getEmail());
             message.setFrom(mailProperties.getFrom());
             message.setText(mailBody, true);
