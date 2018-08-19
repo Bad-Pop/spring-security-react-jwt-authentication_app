@@ -7,7 +7,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 
 
 import 'bootstrap/dist/css/bootstrap.css';
-import './assets/css/bootstrap.css';
+import './assets/css/bootstrap-lux.css';
+import './assets/css/custom.css';
 import './assets/css/w3.css';
 import './assets/css/material-icons.css';
 import 'noty/lib/noty.css'

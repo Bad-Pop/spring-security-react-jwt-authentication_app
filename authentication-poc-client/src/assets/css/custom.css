@@ -1,0 +1,71 @@
+.app {
+    margin-top: 8em;
+}
+
+.navBrand {
+    color: #fff;
+    display: inline-block;
+    padding-top: 0.3359375rem;
+    padding-bottom: 0.3359375rem;
+    margin-right: 1rem;
+    font-size: 1.09375rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
+
+.navBrand:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer {
+    /*position: absolute;*/ /*FIXED BOTTOM*/
+    margin-top: 7em;
+    bottom: 0;
+    width: 100%;
+    /*height: 60px;*/
+    line-height: 60px;
+    background-color: #f5f5f5;
+}
+
+.avatarHeader {
+    margin-right: 0.3em;
+}
+
+.card-signin {
+    border: 0;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.card-signin .card-title {
+    margin-bottom: 2rem;
+    font-weight: 300;
+    font-size: 1.5rem;
+}
+
+.card-signin .card-body {
+    padding: 2rem;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.setting-menu .active{
+    height: 100%;
+    background: linear-gradient(90deg, #fff 98%, #555 5%);
+    border-radius: 0px!important;
+    border-width: 1px!important;
+    border-bottom-color: #e3e6ea!important;
+}
+
+.setting-menu .menu-item {
+    margin-top: 0.2em;
+}
+
+.cursor-pointer {
+    cursor: pointer!important;
+}
