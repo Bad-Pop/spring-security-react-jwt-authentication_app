@@ -3,19 +3,17 @@ package fr.alexisvachard.authenticationpoc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "fr.alexisvachard.authenticationpoc")
 @EntityScan(basePackageClasses = {
         AuthenticationPocApplication.class,
         Jsr310JpaConverters.class
 })
-@ComponentScan("fr.alexisvachard.authenticationpoc")
 @EnableJpaRepositories(basePackages = "fr.alexisvachard.authenticationpoc.repository")
 public class AuthenticationPocApplication {
 

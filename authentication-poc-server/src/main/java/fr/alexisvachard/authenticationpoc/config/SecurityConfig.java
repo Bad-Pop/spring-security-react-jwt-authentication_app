@@ -4,6 +4,7 @@ import fr.alexisvachard.authenticationpoc.security.jwt.JwtAuthenticationEntryPoi
 import fr.alexisvachard.authenticationpoc.security.jwt.JwtAuthenticationFilter;
 import fr.alexisvachard.authenticationpoc.security.user.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -60,37 +61,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors()
-                .and()
-                .csrf()
-                .disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(unauthorizedHandler)
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/",
-                        "/favicon.ico",
-                        "/**/*.png",
-                        "/**/*.gif",
-                        "/**/*.svg",
-                        "/**/*.jpg",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js"
-                )
-                .permitAll()
-                .antMatchers("/api/public/**")
-                .permitAll()
-                .mvcMatchers("/swagger-resources/**",
-                        "/swagger-ui.html",
-                        "/v2/api-docs",
-                        "/webjars/**"
-                )
-                .permitAll()
-                .anyRequest()
-                .authenticated();
+                    .and()
+                        .csrf()
+                        .disable()
+                        .exceptionHandling()
+                        .authenticationEntryPoint(unauthorizedHandler)
+                            .and()
+                                .sessionManagement()
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                                    .and()
+                                        .requestMatcher(EndpointRequest.toAnyEndpoint())
+                                            .authorizeRequests()
+                                                .anyRequest()
+                                                    .hasRole("ADMIN")
+                                                        .and()
+                                                            .authorizeRequests()
+                                                                .antMatchers("/")
+                                                                    .permitAll()
+                                                                .antMatchers("/api/public/**")
+                                                                    .permitAll()
+                                                                .mvcMatchers("/swagger-resources/**",
+                                                                        "/swagger-ui.html",
+                                                                        "/v2/api-docs",
+                                                                        "/webjars/**"
+                                                                )
+                                                                    .permitAll()
+                                                                .anyRequest()
+                                                                    .authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

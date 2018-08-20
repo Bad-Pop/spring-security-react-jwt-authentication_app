@@ -20,7 +20,7 @@ public class PasswordResetTokenPurgeTask {
         this.passwordResetTokenRepository = passwordResetTokenRepository;
     }
 
-    @Scheduled(cron = "${fr.alexisvachard.authentication-poc.purge.cron.expression}")
+    @Scheduled(cron = "0 0 5 * * ?")
     public void purgeExpiredPasswordResetToken() {
 
         Date now = Date.from(Instant.now());
