@@ -1,4 +1,5 @@
 export const API_BASE_URL = "http://localhost:8080/api";
+export const API_BASE_URL_ACTUATOR = "http://localhost:8080/manage";
 
 export const ACCESS_TOKEN = "accessToken";
 export const ADMIN_TOKEN = "adminToken";

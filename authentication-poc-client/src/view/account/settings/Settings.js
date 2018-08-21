@@ -54,7 +54,7 @@ class Settings extends Component {
                     <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                         <Nav vertical pills>
                             <img src={"http://cravatar.eu/helmavatar/" + decodedToken.username + "/128.png"}
-                                 alt="avatar" className="img-fluid align-self-center" style={{maxWidth: 128}}/>
+                                 alt="avatar" className="img-fluid align-self-center mb-3" style={{maxWidth: 128}}/>
                             {navItem}
                         </Nav>
                     </div>

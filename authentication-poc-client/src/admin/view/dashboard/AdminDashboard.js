@@ -3,12 +3,9 @@ import {Link, withRouter} from 'react-router-dom';
 import {Nav, NavItem} from 'reactstrap';
 
 import Dashboard from './index/Dashboard';
+import Health from './util/Health';
 
 class AdminDashboard extends Component {
-
-    state = {
-        isNavBarCollapseOpen: false,
-    };
 
     constructor(props) {
         super(props);
@@ -77,6 +74,10 @@ class AdminDashboard extends Component {
                     <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
                         <Nav vertical pills>
                             {menuItem}
+                            <hr/>
+
+                            <Health showAlert={this.props.showAlert}/>
+
                         </Nav>
                     </div>
                     <div className="col-sm-12 col-md-9 col-lg-9 col-xl-9">
