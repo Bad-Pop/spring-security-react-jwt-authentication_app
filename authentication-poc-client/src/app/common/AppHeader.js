@@ -12,10 +12,10 @@ import {
     NavItem,
     UncontrolledDropdown
 } from 'reactstrap';
-import {ACCESS_TOKEN} from "../../config/Config";
+import {ACCESS_TOKEN, ADMIN_TOKEN} from "../../config/Config";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faUserLock, faDoorOpen, faHome} from '@fortawesome/free-solid-svg-icons';
+import {faUserLock, faDoorOpen, faHome, faCogs} from '@fortawesome/free-solid-svg-icons';
 
 class AppHeader extends Component {
 
@@ -60,8 +60,17 @@ class AppHeader extends Component {
                         </DropdownItem>
                         <DropdownItem divider/>
                         <DropdownItem>
-                            <Link to="/me/settings/account" className="nav-link text-dark"><FontAwesomeIcon icon={faUserLock}/> Settings</Link>
+                            <Link to="/me/settings/account" className="nav-link text-dark"><FontAwesomeIcon icon={faUserLock}/> My Settings</Link>
                         </DropdownItem>
+                        {
+                            localStorage.getItem(ADMIN_TOKEN)
+                            ?
+                                <DropdownItem>
+                                    <Link to="/admin/dashboard/index" className="nav-link text-dark"><FontAwesomeIcon icon={faCogs}/> Admin dashboard</Link>
+                                </DropdownItem>
+                            :
+                                null
+                        }
                         <DropdownItem divider/>
                         <DropdownItem onClick={this.props.logout} className="cursor-pointer">
                             <p className="nav-link text-dark"><FontAwesomeIcon icon={faDoorOpen}/> Logout</p>

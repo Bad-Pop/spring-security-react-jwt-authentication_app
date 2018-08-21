@@ -52,8 +52,9 @@ class Settings extends Component {
             <div className="container">
                 <div className="row pt-5">
                     <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                        <Nav tabs vertical className="setting-menu">
-                            <img src={"http://cravatar.eu/helmavatar/" + decodedToken.username + "/128.png"} alt="avatar" className="img-fluid align-self-center" style={{maxWidth: 128}}/>
+                        <Nav vertical pills>
+                            <img src={"http://cravatar.eu/helmavatar/" + decodedToken.username + "/128.png"}
+                                 alt="avatar" className="img-fluid align-self-center" style={{maxWidth: 128}}/>
                             {navItem}
                         </Nav>
                     </div>

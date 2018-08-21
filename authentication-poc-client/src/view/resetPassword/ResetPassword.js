@@ -50,7 +50,7 @@ class ResetPassword extends Component {
         let passwordPattern = this.state.passwordPattern;
 
         const lowerCase = /[a-z]/g;
-        if(req.password.match(lowerCase)){
+        if (req.password.match(lowerCase)) {
             document.getElementById("lowerCase").classList.remove("text-danger");
             document.getElementById("lowerCase").classList.add("text-success");
             passwordPattern.lowerCase = true;
@@ -61,7 +61,7 @@ class ResetPassword extends Component {
         }
 
         const upperCase = /[A-Z]/g;
-        if(req.password.match(upperCase)){
+        if (req.password.match(upperCase)) {
             document.getElementById("upperCase").classList.remove("text-danger");
             document.getElementById("upperCase").classList.add("text-success");
             passwordPattern.upperCase = true;
@@ -72,7 +72,7 @@ class ResetPassword extends Component {
         }
 
         const number = /[0-9]/g;
-        if(req.password.match(number)){
+        if (req.password.match(number)) {
             document.getElementById("number").classList.remove("text-danger");
             document.getElementById("number").classList.add("text-success");
             passwordPattern.number = true;
@@ -82,7 +82,7 @@ class ResetPassword extends Component {
             passwordPattern.number = false;
         }
 
-        if(req.password.length > PASSWORD_MIN_LENGTH && req.password.length < PASSWORD_MAX_LENGTH){
+        if (req.password.length > PASSWORD_MIN_LENGTH && req.password.length < PASSWORD_MAX_LENGTH) {
             document.getElementById("chars").classList.remove("text-danger");
             document.getElementById("chars").classList.add("text-success");
             passwordPattern.charsLength = true;
@@ -93,7 +93,7 @@ class ResetPassword extends Component {
         }
         this.setState({passwordPattern: passwordPattern});
 
-        if(req.password === req.confirmPassword){
+        if (req.password === req.confirmPassword) {
             document.getElementById("inputNewPassword").classList.add("is-valid");
             document.getElementById("inputConfirmNewPassword").classList.add("is-valid");
             document.getElementById("inputNewPassword").classList.remove("is-invalid");
@@ -114,7 +114,7 @@ class ResetPassword extends Component {
         let passwordPattern = this.state.passwordPattern;
 
         const lowerCase = /[a-z]/g;
-        if(req.confirmPassword.match(lowerCase)){
+        if (req.confirmPassword.match(lowerCase)) {
             document.getElementById("lowerCase").classList.remove("text-danger");
             document.getElementById("lowerCase").classList.add("text-success");
             passwordPattern.lowerCase = true;
@@ -125,7 +125,7 @@ class ResetPassword extends Component {
         }
 
         const upperCase = /[A-Z]/g;
-        if(req.confirmPassword.match(upperCase)){
+        if (req.confirmPassword.match(upperCase)) {
             document.getElementById("upperCase").classList.remove("text-danger");
             document.getElementById("upperCase").classList.add("text-success");
             passwordPattern.upperCase = true;
@@ -136,7 +136,7 @@ class ResetPassword extends Component {
         }
 
         const number = /[0-9]/g;
-        if(req.confirmPassword.match(number)){
+        if (req.confirmPassword.match(number)) {
             document.getElementById("number").classList.remove("text-danger");
             document.getElementById("number").classList.add("text-success");
             passwordPattern.number = true;
@@ -146,7 +146,7 @@ class ResetPassword extends Component {
             passwordPattern.number = false;
         }
 
-        if(req.confirmPassword.length > PASSWORD_MIN_LENGTH && req.confirmPassword.length < PASSWORD_MAX_LENGTH){
+        if (req.confirmPassword.length > PASSWORD_MIN_LENGTH && req.confirmPassword.length < PASSWORD_MAX_LENGTH) {
             document.getElementById("chars").classList.remove("text-danger");
             document.getElementById("chars").classList.add("text-success");
             passwordPattern.charsLength = true;
@@ -157,7 +157,7 @@ class ResetPassword extends Component {
         }
         this.setState({passwordPattern: passwordPattern});
 
-        if(req.password === req.confirmPassword){
+        if (req.password === req.confirmPassword) {
             document.getElementById("inputNewPassword").classList.add("is-valid");
             document.getElementById("inputConfirmNewPassword").classList.add("is-valid");
             document.getElementById("inputNewPassword").classList.remove("is-invalid");
@@ -188,9 +188,9 @@ class ResetPassword extends Component {
         }
 
 
-        if(req.password === req.confirmPassword){
+        if (req.password === req.confirmPassword) {
             const passwordPattern = this.state.passwordPattern;
-            if (passwordPattern.upperCase && passwordPattern.lowerCase && passwordPattern.charsLength && passwordPattern.number){
+            if (passwordPattern.upperCase && passwordPattern.lowerCase && passwordPattern.charsLength && passwordPattern.number) {
                 this.setState({showLoading: true});
                 resetPassword(req)
                     .then(res => {
@@ -225,12 +225,12 @@ class ResetPassword extends Component {
 
                             {
                                 this.state.showLoading
-                                ?
+                                    ?
                                     <div>
                                         <h1 className="card-title text-center">Loading. Please wait...</h1>
                                         <i className="material-icons w3-xxxlarge w3-spin d-flex justify-content-center">refresh</i>
                                     </div>
-                                :
+                                    :
                                     <div>
                                         <h1 className="card-title text-center">Reset your password</h1>
                                         <form onSubmit={e => this.resetPassword(e)}>
@@ -243,8 +243,10 @@ class ResetPassword extends Component {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="inputConfirmNewPassword">Confirm new password</label>
-                                                <input type="password" className="form-control" id="inputConfirmNewPassword"
-                                                       placeholder="Enter your new password again" required autoComplete="off"
+                                                <input type="password" className="form-control"
+                                                       id="inputConfirmNewPassword"
+                                                       placeholder="Enter your new password again" required
+                                                       autoComplete="off"
                                                        onChange={e => this.updateConfirmNewPassword(e)}
                                                 />
                                             </div>

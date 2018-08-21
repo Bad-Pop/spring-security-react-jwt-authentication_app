@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {register} from "../../api/Api";
 import {
-    ACCESS_TOKEN, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, USERNAME_MAX_LENGTH,
+    ACCESS_TOKEN,
+    PASSWORD_MAX_LENGTH,
+    PASSWORD_MIN_LENGTH,
+    USERNAME_MAX_LENGTH,
     USERNAME_MIN_LENGTH
 } from "../../config/Config";
 
@@ -23,7 +26,7 @@ class Register extends Component {
         }
     };
 
-    componentDidMount(){
+    componentDidMount() {
         document.title = "Sign up"
     }
 
@@ -47,7 +50,7 @@ class Register extends Component {
         let passwordPattern = this.state.passwordPattern;
 
         const lowerCase = /[a-z]/g;
-        if(req.password.match(lowerCase)){
+        if (req.password.match(lowerCase)) {
             document.getElementById("lowerCase").classList.remove("text-danger");
             document.getElementById("lowerCase").classList.add("text-success");
             passwordPattern.lowerCase = true;
@@ -58,7 +61,7 @@ class Register extends Component {
         }
 
         const upperCase = /[A-Z]/g;
-        if(req.password.match(upperCase)){
+        if (req.password.match(upperCase)) {
             document.getElementById("upperCase").classList.remove("text-danger");
             document.getElementById("upperCase").classList.add("text-success");
             passwordPattern.upperCase = true;
@@ -69,7 +72,7 @@ class Register extends Component {
         }
 
         const number = /[0-9]/g;
-        if(req.password.match(number)){
+        if (req.password.match(number)) {
             document.getElementById("number").classList.remove("text-danger");
             document.getElementById("number").classList.add("text-success");
             passwordPattern.number = true;
@@ -79,7 +82,7 @@ class Register extends Component {
             passwordPattern.number = false;
         }
 
-        if(req.password.length > PASSWORD_MIN_LENGTH && req.password.length < PASSWORD_MAX_LENGTH){
+        if (req.password.length > PASSWORD_MIN_LENGTH && req.password.length < PASSWORD_MAX_LENGTH) {
             document.getElementById("chars").classList.remove("text-danger");
             document.getElementById("chars").classList.add("text-success");
             passwordPattern.charsLength = true;
@@ -173,9 +176,12 @@ class Register extends Component {
                                                     <label htmlFor="inputPassword">Password</label>
                                                     <p className="text-muted">Your password must contain :</p>
                                                     <p className="text-danger" id="number">* One number</p>
-                                                    <p className="text-danger" id="lowerCase">* One lower case letter</p>
-                                                    <p className="text-danger" id="upperCase">* One upper case letter</p>
-                                                    <p className="text-danger" id="chars">* Between 6 and 20 characters</p>
+                                                    <p className="text-danger" id="lowerCase">* One lower case
+                                                        letter</p>
+                                                    <p className="text-danger" id="upperCase">* One upper case
+                                                        letter</p>
+                                                    <p className="text-danger" id="chars">* Between 6 and 20
+                                                        characters</p>
                                                     <input type="password" id="inputPassword" className="form-control"
                                                            placeholder="Password" required autoComplete="on"
                                                            onChange={this.updatePassword}
@@ -188,7 +194,8 @@ class Register extends Component {
                                                         type="submit">Sign up
                                                 </button>
                                                 <p className="text-muted">Already registed ? <Link to="/login"
-                                                                                                   className="text-primary">Login now !</Link></p>
+                                                                                                   className="text-primary">Login
+                                                    now !</Link></p>
                                                 <small id="emailHelp" className="form-text text-muted">
                                                     We'll never share your information with anyone else.
                                                 </small>

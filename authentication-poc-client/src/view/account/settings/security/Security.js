@@ -80,7 +80,7 @@ class Security extends Component {
 
     enable2FAStepOne = event => {
         event.preventDefault();
-        if(this.state.enableTwoFARequest.password && this.state.enableTwoFARequest.password.length >= PASSWORD_MIN_LENGTH){
+        if (this.state.enableTwoFARequest.password && this.state.enableTwoFARequest.password.length >= PASSWORD_MIN_LENGTH) {
             this.toggleTwoFAStepOneModal();
             this.setState({showLoading: true});
             enable2FAStepOne()
@@ -110,7 +110,7 @@ class Security extends Component {
         this.setState({enableTwoFARequest: req});
     };
 
-    cancelEnable2FA(){
+    cancelEnable2FA() {
         disable2FA();
         this.setState({
             isUsingTwoFA: false,
@@ -152,7 +152,7 @@ class Security extends Component {
             }).catch(error => {
             if (error.message && error.success === false) {
                 this.props.showAlert(error.message, "error");
-            } else if(error.message === "Your password does not match ! Please try again."){
+            } else if (error.message === "Your password does not match ! Please try again.") {
                 this.props.showAlert(error.message, "error");
                 this.cancelEnable2FA();
             } else {
@@ -166,7 +166,7 @@ class Security extends Component {
     render() {
 
         let qrCodeImgSrc;
-        if(this.state.enableTwoFAStepOne.status === true
+        if (this.state.enableTwoFAStepOne.status === true
             && this.state.enableTwoFAStepOne.qrCodeByteData) {
 
             qrCodeImgSrc = "data:image/png;base64," + this.state.enableTwoFAStepOne.qrCodeByteData;
@@ -198,104 +198,121 @@ class Security extends Component {
                                                 You account is already secured by 2FA, congratulations !
                                             </p>
                                             <hr className="my-4"/>
-                                            <button className="btn btn-danger" onClick={this.cancelEnable2FA}>Disable Two-Factor authentication</button>
+                                            <button className="btn btn-danger" onClick={this.cancelEnable2FA}>Disable
+                                                Two-Factor authentication
+                                            </button>
                                         </div>
                                     </div>
                                     :
                                     this.state.showStepTwo
-                                    ?
+                                        ?
                                         <div className="text-center align-content-center">
                                             <p>Please scan this barcode with your app.</p>
-                                            <p className="text-muted">Scan the image above with the two-factor authentication app on your phone.</p>
+                                            <p className="text-muted">Scan the image above with the two-factor
+                                                authentication app on your phone.</p>
                                             <img src={qrCodeImgSrc} alt="qrCode 2FA"/>
                                             <hr/>
                                             <p>Enter the six-digit code from the application</p>
-                                            <p className="text-muted">After scanning the barcode image, the app will display a six-digit code that you can enter below.</p>
+                                            <p className="text-muted">After scanning the barcode image, the app will
+                                                display a six-digit code that you can enter below.</p>
                                             <form onSubmit={e => this.enable2FAStepTwo(e)}>
                                                 <input
                                                     onChange={this.updateEnableTwoFARequestCode}
                                                     className="form-control" id="two-factor-code" type="number"
                                                     name="otp" placeholder="123456" autoComplete="off" required/>
-                                                <button type="submit" className="btn btn-success btn-lg mt-4" >Enable 2FA</button>
+                                                <button type="submit" className="btn btn-success btn-lg mt-4">Enable
+                                                    2FA
+                                                </button>
 
                                             </form>
                                             {/*TODO*/}
-                                            <button className="btn btn-danger btn-lg mt-4" onClick={this.cancelEnable2FA}>Cancel</button>
-                                        </div>
-                                    :
-                                    <div>
-                                        <div className="jumbotron text-center">
-                                            <FontAwesomeIcon icon={faLockOpen} className="w3-xxxlarge m-auto"/>
-                                            <h3>Two factor authentication is not enabled yet.</h3>
-                                            <p className="lead">
-                                                Two-factor authentication adds an additional layer of security to your
-                                                account by requiring more than just a password to log in.
-                                            </p>
-                                            <p className="alert-link page-link" onClick={this.toggleLearnMoreAbout2FA}>
-                                                Learn more
-                                            </p>
-                                            <hr className="my-4"/>
-                                            <button className="btn btn-success btn-lg"
-                                                    onClick={this.toggleTwoFAStepOneModal}>Enable Two-factor
-                                                authentication
+                                            <button className="btn btn-danger btn-lg mt-4"
+                                                    onClick={this.cancelEnable2FA}>Cancel
                                             </button>
                                         </div>
-
-
-                                        <Modal isOpen={this.state.showLearnMoreAbout2FA}
-                                               toggle={this.toggleLearnMoreAbout2FA}>
-                                            <ModalHeader toggle={this.toggleLearnMoreAbout2FA}>About two-factor
-                                                authentication</ModalHeader>
-                                            <ModalBody>
-                                                <p>
-                                                    Two-factor authentication, or 2FA, is an extra layer of security
-                                                    used when logging into websites or apps. With 2FA, you have to log
-                                                    in with your username and password and provide another form of
-                                                    authentication that only you know or have access to.
+                                        :
+                                        <div>
+                                            <div className="jumbotron text-center">
+                                                <FontAwesomeIcon icon={faLockOpen} className="w3-xxxlarge m-auto"/>
+                                                <h3>Two factor authentication is not enabled yet.</h3>
+                                                <p className="lead">
+                                                    Two-factor authentication adds an additional layer of security to
+                                                    your
+                                                    account by requiring more than just a password to log in.
                                                 </p>
-                                                <p>
-                                                    For us, the second form of authentication is a code that's generated
-                                                    by an application on your mobile device. After you enable 2FA,
-                                                    system generates an authentication code any time someone attempts to
-                                                    sign into your account. The only way someone can sign into your
-                                                    account is if they know both your password and have access to the
-                                                    authentication code on your phone.
+                                                <p className="alert-link page-link"
+                                                   onClick={this.toggleLearnMoreAbout2FA}>
+                                                    Learn more
                                                 </p>
-                                                <img src={TwoFA} alt="2FA schema" className="img-fluid"/>
-                                            </ModalBody>
-                                            <ModalFooter>
+                                                <hr className="my-4"/>
                                                 <button className="btn btn-success btn-lg"
                                                         onClick={this.toggleTwoFAStepOneModal}>Enable Two-factor
                                                     authentication
                                                 </button>
-                                                <Button color="secondary"
-                                                        onClick={this.toggleLearnMoreAbout2FA}>Close</Button>
-                                            </ModalFooter>
-                                        </Modal>
+                                            </div>
 
-                                        <Modal isOpen={this.state.showTwoFAStepOneModal}
-                                               toggle={this.toggleTwoFAStepOneModal}>
-                                            <ModalHeader toggle={this.toggleTwoFAStepOneModal}>About two-factor
-                                                authentication</ModalHeader>
-                                            <ModalBody>
-                                                <p>
-                                                    To enable 2FA please enter your password.
-                                                </p>
-                                                <form onSubmit={e => this.enable2FAStepOne(e)}>
-                                                    <input type="password" autoComplete="on" className="form-control"
-                                                           id="enable2FAPasswordConfirm" required
-                                                           placeholder="Enter your password"
-                                                           onChange={this.updateEnableTwoFARequestPassword}
-                                                    />
-                                                    <button type="submit" className="btn btn-success btn-lg mt-4">Continue</button>
-                                                </form>
-                                            </ModalBody>
-                                            <ModalFooter>
-                                                <Button color="danger"
-                                                        onClick={this.toggleTwoFAStepOneModal}>Cancel</Button>
-                                            </ModalFooter>
-                                        </Modal>
-                                    </div>
+
+                                            <Modal isOpen={this.state.showLearnMoreAbout2FA}
+                                                   toggle={this.toggleLearnMoreAbout2FA}>
+                                                <ModalHeader toggle={this.toggleLearnMoreAbout2FA}>About two-factor
+                                                    authentication</ModalHeader>
+                                                <ModalBody>
+                                                    <p>
+                                                        Two-factor authentication, or 2FA, is an extra layer of security
+                                                        used when logging into websites or apps. With 2FA, you have to
+                                                        log
+                                                        in with your username and password and provide another form of
+                                                        authentication that only you know or have access to.
+                                                    </p>
+                                                    <p>
+                                                        For us, the second form of authentication is a code that's
+                                                        generated
+                                                        by an application on your mobile device. After you enable 2FA,
+                                                        system generates an authentication code any time someone
+                                                        attempts to
+                                                        sign into your account. The only way someone can sign into your
+                                                        account is if they know both your password and have access to
+                                                        the
+                                                        authentication code on your phone.
+                                                    </p>
+                                                    <img src={TwoFA} alt="2FA schema" className="img-fluid"/>
+                                                </ModalBody>
+                                                <ModalFooter>
+                                                    <button className="btn btn-success btn-lg"
+                                                            onClick={this.toggleTwoFAStepOneModal}>Enable Two-factor
+                                                        authentication
+                                                    </button>
+                                                    <Button color="secondary"
+                                                            onClick={this.toggleLearnMoreAbout2FA}>Close</Button>
+                                                </ModalFooter>
+                                            </Modal>
+
+                                            <Modal isOpen={this.state.showTwoFAStepOneModal}
+                                                   toggle={this.toggleTwoFAStepOneModal}>
+                                                <ModalHeader toggle={this.toggleTwoFAStepOneModal}>About two-factor
+                                                    authentication</ModalHeader>
+                                                <ModalBody>
+                                                    <p>
+                                                        To enable 2FA please enter your password.
+                                                    </p>
+                                                    <form onSubmit={e => this.enable2FAStepOne(e)}>
+                                                        <input type="password" autoComplete="on"
+                                                               className="form-control"
+                                                               id="enable2FAPasswordConfirm" required
+                                                               placeholder="Enter your password"
+                                                               onChange={this.updateEnableTwoFARequestPassword}
+                                                        />
+                                                        <button type="submit"
+                                                                className="btn btn-success btn-lg mt-4">Continue
+                                                        </button>
+                                                    </form>
+                                                </ModalBody>
+                                                <ModalFooter>
+                                                    <Button color="danger"
+                                                            onClick={this.toggleTwoFAStepOneModal}>Cancel</Button>
+                                                </ModalFooter>
+                                            </Modal>
+                                        </div>
                             }
                         </div>
                 }

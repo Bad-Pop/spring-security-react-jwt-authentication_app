@@ -3,13 +3,13 @@ import {withRouter} from 'react-router-dom';
 
 class Home extends Component {
 
-    componentDidMount(){
+    componentDidMount() {
         document.title = "Home page"
     }
 
 
     componentDidUpdate() {
-        if(this.props.notFound === true){
+        if (this.props.notFound === true) {
             this.props.showAlert("Page not found ! Back to the home page.", "error")
         }
     }

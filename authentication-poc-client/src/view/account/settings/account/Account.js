@@ -25,7 +25,7 @@ class Account extends Component {
         }
     };
 
-    componentDidMount(){
+    componentDidMount() {
         document.title = "My account settings"
     }
 
@@ -43,7 +43,7 @@ class Account extends Component {
         let passwordPattern = this.state.passwordPattern;
 
         const lowerCase = /[a-z]/g;
-        if(req.newPassword.match(lowerCase)){
+        if (req.newPassword.match(lowerCase)) {
             document.getElementById("lowerCase").classList.remove("text-danger");
             document.getElementById("lowerCase").classList.add("text-success");
             passwordPattern.lowerCase = true;
@@ -54,7 +54,7 @@ class Account extends Component {
         }
 
         const upperCase = /[A-Z]/g;
-        if(req.newPassword.match(upperCase)){
+        if (req.newPassword.match(upperCase)) {
             document.getElementById("upperCase").classList.remove("text-danger");
             document.getElementById("upperCase").classList.add("text-success");
             passwordPattern.upperCase = true;
@@ -65,7 +65,7 @@ class Account extends Component {
         }
 
         const number = /[0-9]/g;
-        if(req.newPassword.match(number)){
+        if (req.newPassword.match(number)) {
             document.getElementById("number").classList.remove("text-danger");
             document.getElementById("number").classList.add("text-success");
             passwordPattern.number = true;
@@ -75,7 +75,7 @@ class Account extends Component {
             passwordPattern.number = false;
         }
 
-        if(req.newPassword.length > PASSWORD_MIN_LENGTH && req.newPassword.length < PASSWORD_MAX_LENGTH){
+        if (req.newPassword.length > PASSWORD_MIN_LENGTH && req.newPassword.length < PASSWORD_MAX_LENGTH) {
             document.getElementById("chars").classList.remove("text-danger");
             document.getElementById("chars").classList.add("text-success");
             passwordPattern.charsLength = true;
@@ -86,7 +86,7 @@ class Account extends Component {
         }
         this.setState({passwordPattern: passwordPattern});
 
-        if(req.newPassword === req.confirmNewPassword){
+        if (req.newPassword === req.confirmNewPassword) {
             document.getElementById("inputNewPassword").classList.add("is-valid");
             document.getElementById("inputConfirmNewPassword").classList.add("is-valid");
             document.getElementById("inputNewPassword").classList.remove("is-invalid");
@@ -107,7 +107,7 @@ class Account extends Component {
         let passwordPattern = this.state.passwordPattern;
 
         const lowerCase = /[a-z]/g;
-        if(req.confirmNewPassword.match(lowerCase)){
+        if (req.confirmNewPassword.match(lowerCase)) {
             document.getElementById("lowerCase").classList.remove("text-danger");
             document.getElementById("lowerCase").classList.add("text-success");
             passwordPattern.lowerCase = true;
@@ -118,7 +118,7 @@ class Account extends Component {
         }
 
         const upperCase = /[A-Z]/g;
-        if(req.confirmNewPassword.match(upperCase)){
+        if (req.confirmNewPassword.match(upperCase)) {
             document.getElementById("upperCase").classList.remove("text-danger");
             document.getElementById("upperCase").classList.add("text-success");
             passwordPattern.upperCase = true;
@@ -129,7 +129,7 @@ class Account extends Component {
         }
 
         const number = /[0-9]/g;
-        if(req.confirmNewPassword.match(number)){
+        if (req.confirmNewPassword.match(number)) {
             document.getElementById("number").classList.remove("text-danger");
             document.getElementById("number").classList.add("text-success");
             passwordPattern.number = true;
@@ -139,7 +139,7 @@ class Account extends Component {
             passwordPattern.number = false;
         }
 
-        if(req.confirmNewPassword.length > PASSWORD_MIN_LENGTH && req.confirmNewPassword.length < PASSWORD_MAX_LENGTH){
+        if (req.confirmNewPassword.length > PASSWORD_MIN_LENGTH && req.confirmNewPassword.length < PASSWORD_MAX_LENGTH) {
             document.getElementById("chars").classList.remove("text-danger");
             document.getElementById("chars").classList.add("text-success");
             passwordPattern.charsLength = true;
@@ -150,7 +150,7 @@ class Account extends Component {
         }
         this.setState({passwordPattern: passwordPattern});
 
-        if(req.newPassword === req.confirmNewPassword){
+        if (req.newPassword === req.confirmNewPassword) {
             document.getElementById("inputNewPassword").classList.add("is-valid");
             document.getElementById("inputConfirmNewPassword").classList.add("is-valid");
             document.getElementById("inputNewPassword").classList.remove("is-invalid");
@@ -181,9 +181,9 @@ class Account extends Component {
             return null;
         }
 
-        if(req.newPassword === req.confirmNewPassword){
+        if (req.newPassword === req.confirmNewPassword) {
             const passwordPattern = this.state.passwordPattern;
-            if (passwordPattern.upperCase && passwordPattern.lowerCase && passwordPattern.charsLength && passwordPattern.number){
+            if (passwordPattern.upperCase && passwordPattern.lowerCase && passwordPattern.charsLength && passwordPattern.number) {
                 updatePassword(this.state.updatePasswordRequest)
                     .then(res => {
                         this.props.showAlert("Your password has been changed !", "success");
@@ -207,8 +207,8 @@ class Account extends Component {
 
     };
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <h1>Account settings</h1>
                 <h2>Change password</h2>
@@ -216,12 +216,12 @@ class Account extends Component {
                 <div>
                     {
                         this.state.showLoading
-                        ?
+                            ?
                             <div className="align-content-center text-center">
                                 <h3>Updating your password</h3>
                                 <i className="material-icons w3-xxxlarge w3-spin align-content-center">refresh</i>
                             </div>
-                        :
+                            :
                             <form onSubmit={e => this.sendUpdatePasswordRequest(e)}>
                                 <div className="form-group">
                                     <label htmlFor="inputOldPassword">Your password</label>
@@ -261,4 +261,5 @@ class Account extends Component {
         );
     }
 }
+
 export default withRouter(Account);

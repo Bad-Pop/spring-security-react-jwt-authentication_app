@@ -6,6 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,6 +43,9 @@ public class User {
 
     private String twoFASecret;
 
+    @Column(columnDefinition = "DATE NOT NULL")
+    private LocalDate accountCreationDate;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "USER_ROLE",
@@ -56,6 +62,13 @@ public class User {
         this.email = email;
         this.password = password;
         this.isUsingTwoFA = false;
+        this.accountCreationDate = initiAccountCreationDate();
+    }
+
+    public User(String username, String email, LocalDate accountCreationDate) {
+        this.username = username;
+        this.email = email;
+        this.accountCreationDate = accountCreationDate;
     }
 
     public User(String username, String email, String password, boolean isUsingTwoFA, String twoFASecret) {
@@ -64,6 +77,20 @@ public class User {
         this.password = password;
         this.isUsingTwoFA = isUsingTwoFA;
         this.twoFASecret = twoFASecret;
+        this.accountCreationDate = initiAccountCreationDate();
+    }
+
+    public User(String username, String email, String password, boolean isUsingTwoFA, String twoFASecret, LocalDate accountCreationDate) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.isUsingTwoFA = isUsingTwoFA;
+        this.twoFASecret = twoFASecret;
+        this.accountCreationDate = accountCreationDate;
+    }
+
+    private LocalDate initiAccountCreationDate(){
+        return LocalDate.now();
     }
 
     public Long getId() {
@@ -120,5 +147,13 @@ public class User {
 
     public void setTwoFASecret(String twoFASecret) {
         this.twoFASecret = twoFASecret;
+    }
+
+    public LocalDate getAccountCreationDate() {
+        return accountCreationDate;
+    }
+
+    public void setAccountCreationDate(LocalDate accountCreationDate) {
+        this.accountCreationDate = accountCreationDate;
     }
 }

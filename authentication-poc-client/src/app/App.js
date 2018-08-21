@@ -7,10 +7,11 @@ import Register from '../view/register/Register';
 import Settings from '../view/account/settings/Settings';
 import ResetPassword from '../view/resetPassword/ResetPassword';
 import NotFound from '../view/notfound/NotFound';
+import AdminDashboard from '../admin/view/dashboard/AdminDashboard';
 
 import AppHeader from './common/AppHeader';
 import AppFooter from './common/AppFooter';
-import {ACCESS_TOKEN} from "../config/Config";
+import {ACCESS_TOKEN, ADMIN_TOKEN} from "../config/Config";
 
 class App extends Component {
 
@@ -42,7 +43,7 @@ class App extends Component {
     };
 
     logout() {
-        localStorage.removeItem(ACCESS_TOKEN);
+        localStorage.clear();
         this.showAlert("Your are no longer logged in !", "success");
         this.props.history.push("/");
     }
@@ -53,13 +54,28 @@ class App extends Component {
             let base64Url = token.split('.')[1];
             let base64 = base64Url.replace('-', '+').replace('_', '/');
             token = JSON.parse(window.atob(base64));
-
             // console.log(exp, Math.floor(Date.now()/1000));
             if (token.exp <= Math.floor(Date.now() / 1000)) {
                 localStorage.removeItem(ACCESS_TOKEN);
                 this.showAlert("Your session has expired !", "info");
                 this.props.history.push("/");
                 return false;
+            }
+
+            //CHECK IF USER HAS ROLE_ADMIN
+            if(token.role.length > 1){
+                if(Object.entries(token.role[0]) && Object.entries(token.role[1])){
+                    let roles = [];
+
+                    Object.entries(token.role).forEach(([key, value]) => {
+                        roles.push(value.authority);
+                    });
+                    for(let i = 0; i < roles.length; i++){
+                        if(roles[i] === "ROLE_ADMIN"){
+                            localStorage.setItem(ADMIN_TOKEN, roles[i]);
+                        }
+                    }
+                }
             }
             return true;
         } else {
@@ -69,7 +85,7 @@ class App extends Component {
 
     render() {
 
-        let routes;
+        let routes = [];
         if (this.isAuthenticated()) {
             routes = [
                 <Route key={1} exact path='/me/settings/:render(account|security)' render={(props) => (
@@ -100,6 +116,15 @@ class App extends Component {
                         )}/>
 
                         {routes}
+                        {
+                            localStorage.getItem(ADMIN_TOKEN)
+                            ?
+                                <Route exact path='/admin/dashboard/:render(|index|httptrace|users)' render={(props) => (
+                                    <AdminDashboard {...props} showAlert={this.showAlert} isAuthenticated={this.isAuthenticated}/>
+                                )}/>
+                            :
+                                null
+                        }
 
                         <Route render={(props) => (
                             <NotFound {...props} showAlert={this.showAlert}/>
