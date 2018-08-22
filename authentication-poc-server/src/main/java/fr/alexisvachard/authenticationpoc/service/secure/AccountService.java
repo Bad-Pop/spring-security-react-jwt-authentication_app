@@ -4,14 +4,14 @@ import com.google.zxing.WriterException;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import fr.alexisvachard.authenticationpoc.exception.AppException;
-import fr.alexisvachard.authenticationpoc.model.User;
-import fr.alexisvachard.authenticationpoc.repository.UserRepository;
+import fr.alexisvachard.authenticationpoc.persistence.model.User;
+import fr.alexisvachard.authenticationpoc.persistence.repository.UserRepository;
 import fr.alexisvachard.authenticationpoc.service.mail.MailService;
-import fr.alexisvachard.authenticationpoc.web.common.dto.ApiResponseDto;
-import fr.alexisvachard.authenticationpoc.web.secure.dto.account.EnableTwoFARequestDto;
-import fr.alexisvachard.authenticationpoc.web.secure.dto.account.EnableTwoFAStepOneResponseDto;
-import fr.alexisvachard.authenticationpoc.web.secure.dto.account.TwoFAStatusDto;
-import fr.alexisvachard.authenticationpoc.web.secure.dto.account.UpdatePasswordRequestDto;
+import fr.alexisvachard.authenticationpoc.web.dto.request.EnableTwoFARequestDto;
+import fr.alexisvachard.authenticationpoc.web.dto.request.UpdatePasswordRequestDto;
+import fr.alexisvachard.authenticationpoc.web.dto.response.ApiResponseDto;
+import fr.alexisvachard.authenticationpoc.web.dto.response.EnableTwoFAStepOneResponseDto;
+import fr.alexisvachard.authenticationpoc.web.dto.response.TwoFAStatusResponseDto;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -70,7 +70,7 @@ public class AccountService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new AppException("Unable to retrieve this user !"));
 
-        return new ResponseEntity<>(new TwoFAStatusDto(user.isUsingTwoFA()), HttpStatus.OK);
+        return new ResponseEntity<>(new TwoFAStatusResponseDto(user.isUsingTwoFA()), HttpStatus.OK);
     }
 
 

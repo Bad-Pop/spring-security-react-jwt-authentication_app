@@ -1,4 +1,4 @@
-package fr.alexisvachard.authenticationpoc.web.common.dto;
+package fr.alexisvachard.authenticationpoc.web.dto.response;
 
 public class ApiResponseDto {
 

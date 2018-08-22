@@ -1,4 +1,4 @@
-package fr.alexisvachard.authenticationpoc.web.secure.dto;
+package fr.alexisvachard.authenticationpoc.web.dto.response;
 
 public class JwtAuthenticationResponseDto {
 

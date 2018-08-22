@@ -2,7 +2,7 @@ package fr.alexisvachard.authenticationpoc.web.common;
 
 import fr.alexisvachard.authenticationpoc.exception.AppException;
 import fr.alexisvachard.authenticationpoc.service.common.PasswordResetTokenService;
-import fr.alexisvachard.authenticationpoc.web.common.dto.ResetPasswordRequestDto;
+import fr.alexisvachard.authenticationpoc.web.dto.request.ResetPasswordRequestDto;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class PasswordResetTokenController {
     @GetMapping
     public ResponseEntity<?> resetPassword(@RequestParam("email") final String email) throws AppException, TemplateException, IOException {
 
-        if(!StringUtils.hasText(email)){
+        if (!StringUtils.hasText(email)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -32,14 +32,14 @@ public class PasswordResetTokenController {
     }
 
     @PostMapping
-    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequestDto req) throws AppException, IOException, TemplateException{
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequestDto req) throws AppException, IOException, TemplateException {
 
-        if(StringUtils.hasText(req.getPassword())
+        if (StringUtils.hasText(req.getPassword())
                 && StringUtils.hasText(req.getConfirmPassword())
                 && StringUtils.hasText(req.getToken())
-                && req.getId() >= 0){
+                && req.getId() >= 0) {
 
-                return passwordResetTokenService.resetPassword(req);
+            return passwordResetTokenService.resetPassword(req);
         }
 
         throw new AppException("Invalid request. Please try again !");

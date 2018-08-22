@@ -2,8 +2,8 @@ package fr.alexisvachard.authenticationpoc.web.common;
 
 import fr.alexisvachard.authenticationpoc.exception.AppException;
 import fr.alexisvachard.authenticationpoc.service.common.AuthenticationService;
-import fr.alexisvachard.authenticationpoc.web.common.dto.auth.LoginRequestDto;
-import fr.alexisvachard.authenticationpoc.web.common.dto.auth.RegisterRequestDto;
+import fr.alexisvachard.authenticationpoc.web.dto.request.LoginRequestDto;
+import fr.alexisvachard.authenticationpoc.web.dto.request.RegisterRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

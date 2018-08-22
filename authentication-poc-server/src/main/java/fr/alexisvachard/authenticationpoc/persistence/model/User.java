@@ -1,4 +1,4 @@
-package fr.alexisvachard.authenticationpoc.model;
+package fr.alexisvachard.authenticationpoc.persistence.model;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -7,8 +7,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -89,7 +87,7 @@ public class User {
         this.accountCreationDate = accountCreationDate;
     }
 
-    private LocalDate initiAccountCreationDate(){
+    private LocalDate initiAccountCreationDate() {
         return LocalDate.now();
     }
 

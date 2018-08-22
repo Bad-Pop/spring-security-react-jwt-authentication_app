@@ -1,7 +1,7 @@
-package fr.alexisvachard.authenticationpoc.repository;
+package fr.alexisvachard.authenticationpoc.persistence.repository;
 
-import fr.alexisvachard.authenticationpoc.model.Role;
-import fr.alexisvachard.authenticationpoc.model.RoleName;
+import fr.alexisvachard.authenticationpoc.persistence.model.Role;
+import fr.alexisvachard.authenticationpoc.persistence.model.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

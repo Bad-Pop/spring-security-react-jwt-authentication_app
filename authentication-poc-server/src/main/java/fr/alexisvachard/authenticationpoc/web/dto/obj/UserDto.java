@@ -1,7 +1,7 @@
-package fr.alexisvachard.authenticationpoc.web.admin.dto;
+package fr.alexisvachard.authenticationpoc.web.dto.obj;
 
-import fr.alexisvachard.authenticationpoc.model.Role;
-import fr.alexisvachard.authenticationpoc.model.User;
+import fr.alexisvachard.authenticationpoc.persistence.model.Role;
+import fr.alexisvachard.authenticationpoc.persistence.model.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class UserDto {
         this.roles = this.exctractRoles(roles);
     }
 
-    public UserDto(User user){
+    public UserDto(User user) {
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.accountCreationDate = user.getAccountCreationDate();
@@ -37,11 +37,11 @@ public class UserDto {
         this.roles = this.exctractRoles(user.getRoles());
     }
 
-    private List<String> exctractRoles(Set<Role> roles){
+    private List<String> exctractRoles(Set<Role> roles) {
 
         List<String> userDtoRoles = new ArrayList<>();
 
-        for(Role r : roles){
+        for (Role r : roles) {
             userDtoRoles.add(r.getRoleName().toString().substring(5));
         }
 

@@ -1,7 +1,7 @@
 package fr.alexisvachard.authenticationpoc.security.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import fr.alexisvachard.authenticationpoc.model.User;
+import fr.alexisvachard.authenticationpoc.persistence.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

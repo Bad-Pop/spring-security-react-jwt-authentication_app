@@ -1,4 +1,4 @@
-package fr.alexisvachard.authenticationpoc.web.secure.dto.account;
+package fr.alexisvachard.authenticationpoc.web.dto.response;
 
 public class EnableTwoFAStepOneResponseDto {
 

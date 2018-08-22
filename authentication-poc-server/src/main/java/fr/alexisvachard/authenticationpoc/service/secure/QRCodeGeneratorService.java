@@ -2,12 +2,12 @@ package fr.alexisvachard.authenticationpoc.service.secure;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import fr.alexisvachard.authenticationpoc.exception.AppException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

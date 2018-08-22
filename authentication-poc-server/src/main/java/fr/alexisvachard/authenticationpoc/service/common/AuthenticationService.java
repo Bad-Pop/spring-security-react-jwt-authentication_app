@@ -2,16 +2,16 @@ package fr.alexisvachard.authenticationpoc.service.common;
 
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import fr.alexisvachard.authenticationpoc.exception.AppException;
-import fr.alexisvachard.authenticationpoc.model.Role;
-import fr.alexisvachard.authenticationpoc.model.RoleName;
-import fr.alexisvachard.authenticationpoc.model.User;
-import fr.alexisvachard.authenticationpoc.repository.RoleRepository;
-import fr.alexisvachard.authenticationpoc.repository.UserRepository;
+import fr.alexisvachard.authenticationpoc.persistence.model.Role;
+import fr.alexisvachard.authenticationpoc.persistence.model.RoleName;
+import fr.alexisvachard.authenticationpoc.persistence.model.User;
+import fr.alexisvachard.authenticationpoc.persistence.repository.RoleRepository;
+import fr.alexisvachard.authenticationpoc.persistence.repository.UserRepository;
 import fr.alexisvachard.authenticationpoc.security.jwt.JwtTokenProvider;
-import fr.alexisvachard.authenticationpoc.web.common.dto.ApiResponseDto;
-import fr.alexisvachard.authenticationpoc.web.common.dto.auth.LoginRequestDto;
-import fr.alexisvachard.authenticationpoc.web.common.dto.auth.RegisterRequestDto;
-import fr.alexisvachard.authenticationpoc.web.secure.dto.JwtAuthenticationResponseDto;
+import fr.alexisvachard.authenticationpoc.web.dto.request.LoginRequestDto;
+import fr.alexisvachard.authenticationpoc.web.dto.request.RegisterRequestDto;
+import fr.alexisvachard.authenticationpoc.web.dto.response.ApiResponseDto;
+import fr.alexisvachard.authenticationpoc.web.dto.response.JwtAuthenticationResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,13 +47,13 @@ public class AuthenticationService {
         User user = userRepository.findByUsernameOrEmail(loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail())
                 .orElseThrow(() -> new AppException("Unable to retrieve this user !"));
 
-        if(user.isUsingTwoFA()){
+        if (user.isUsingTwoFA()) {
 
             GoogleAuthenticator gAuth = new GoogleAuthenticator();
             String twoFAUserKey = user.getTwoFASecret();
 
-            if(loginRequest.getTwoFACode() > 0){
-                if(gAuth.authorize(twoFAUserKey, loginRequest.getTwoFACode())){
+            if (loginRequest.getTwoFACode() > 0) {
+                if (gAuth.authorize(twoFAUserKey, loginRequest.getTwoFACode())) {
 
                     Authentication authentication = authenticationManager.authenticate(
                             new UsernamePasswordAuthenticationToken(

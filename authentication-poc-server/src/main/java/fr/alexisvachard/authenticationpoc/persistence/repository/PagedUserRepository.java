@@ -1,6 +1,6 @@
-package fr.alexisvachard.authenticationpoc.repository;
+package fr.alexisvachard.authenticationpoc.persistence.repository;
 
-import fr.alexisvachard.authenticationpoc.model.User;
+import fr.alexisvachard.authenticationpoc.persistence.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;

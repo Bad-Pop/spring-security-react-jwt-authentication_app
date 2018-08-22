@@ -14,7 +14,7 @@ import java.util.TimeZone;
         AuthenticationPocApplication.class,
         Jsr310JpaConverters.class
 })
-@EnableJpaRepositories(basePackages = "fr.alexisvachard.authenticationpoc.repository")
+@EnableJpaRepositories(basePackages = "fr.alexisvachard.authenticationpoc.persistence.repository")
 public class AuthenticationPocApplication {
 
     @PostConstruct

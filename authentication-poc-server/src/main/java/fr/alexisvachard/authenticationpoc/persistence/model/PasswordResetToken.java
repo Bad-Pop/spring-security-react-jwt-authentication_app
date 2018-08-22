@@ -1,4 +1,4 @@
-package fr.alexisvachard.authenticationpoc.model;
+package fr.alexisvachard.authenticationpoc.persistence.model;
 
 import javax.persistence.*;
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package fr.alexisvachard.authenticationpoc.web.secure.dto.account;
+package fr.alexisvachard.authenticationpoc.web.dto.request;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

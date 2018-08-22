@@ -1,4 +1,4 @@
-package fr.alexisvachard.authenticationpoc.model;
+package fr.alexisvachard.authenticationpoc.persistence.model;
 
 import org.hibernate.annotations.NaturalId;
 

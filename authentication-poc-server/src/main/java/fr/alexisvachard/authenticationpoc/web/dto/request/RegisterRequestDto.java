@@ -1,4 +1,4 @@
-package fr.alexisvachard.authenticationpoc.web.common.dto.auth;
+package fr.alexisvachard.authenticationpoc.web.dto.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

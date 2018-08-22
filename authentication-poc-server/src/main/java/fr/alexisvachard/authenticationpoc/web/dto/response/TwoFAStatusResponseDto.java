@@ -1,13 +1,13 @@
-package fr.alexisvachard.authenticationpoc.web.secure.dto.account;
+package fr.alexisvachard.authenticationpoc.web.dto.response;
 
-public class TwoFAStatusDto {
+public class TwoFAStatusResponseDto {
 
     private boolean isUsingTwoFA;
 
-    public TwoFAStatusDto() {
+    public TwoFAStatusResponseDto() {
     }
 
-    public TwoFAStatusDto(boolean isUsingTwoFA) {
+    public TwoFAStatusResponseDto(boolean isUsingTwoFA) {
         this.isUsingTwoFA = isUsingTwoFA;
     }
 

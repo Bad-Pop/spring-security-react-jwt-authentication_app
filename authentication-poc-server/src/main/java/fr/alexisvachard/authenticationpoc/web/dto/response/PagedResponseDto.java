@@ -1,11 +1,11 @@
-package fr.alexisvachard.authenticationpoc.web.admin.dto;
+package fr.alexisvachard.authenticationpoc.web.dto.response;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public class PagedResponse {
+public class PagedResponseDto {
 
     private List<?> content;
     private Long offset;
@@ -22,10 +22,10 @@ public class PagedResponse {
     private Pageable previousPageable;
     private Pageable nextPageable;
 
-    public PagedResponse() {
+    public PagedResponseDto() {
     }
 
-    public PagedResponse(List<?> content, Long offset, int pageNumber, int pageSize, boolean lastPage, Long totalElement, int totalPages, int size, int number, int numberOfElements, boolean firstPage, Pageable previousPageable, Pageable nextPageable) {
+    public PagedResponseDto(List<?> content, Long offset, int pageNumber, int pageSize, boolean lastPage, Long totalElement, int totalPages, int size, int number, int numberOfElements, boolean firstPage, Pageable previousPageable, Pageable nextPageable) {
         this.content = content;
         this.offset = offset;
         this.pageNumber = pageNumber;
@@ -41,7 +41,7 @@ public class PagedResponse {
         this.nextPageable = nextPageable;
     }
 
-    public PagedResponse (List<?> content, Page<?> page){
+    public PagedResponseDto(List<?> content, Page<?> page) {
         this.content = content;
         this.offset = page.getPageable().getOffset();
         this.pageNumber = page.getPageable().getPageNumber();

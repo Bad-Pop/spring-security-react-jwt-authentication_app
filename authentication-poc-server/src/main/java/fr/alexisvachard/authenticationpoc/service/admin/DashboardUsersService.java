@@ -1,11 +1,11 @@
 package fr.alexisvachard.authenticationpoc.service.admin;
 
-import fr.alexisvachard.authenticationpoc.model.User;
-import fr.alexisvachard.authenticationpoc.repository.PagedUserRepository;
-import fr.alexisvachard.authenticationpoc.repository.UserRepository;
-import fr.alexisvachard.authenticationpoc.web.admin.dto.PagedResponse;
-import fr.alexisvachard.authenticationpoc.web.admin.dto.UserDto;
-import fr.alexisvachard.authenticationpoc.web.common.dto.ApiResponseDto;
+import fr.alexisvachard.authenticationpoc.persistence.model.User;
+import fr.alexisvachard.authenticationpoc.persistence.repository.PagedUserRepository;
+import fr.alexisvachard.authenticationpoc.persistence.repository.UserRepository;
+import fr.alexisvachard.authenticationpoc.web.dto.obj.UserDto;
+import fr.alexisvachard.authenticationpoc.web.dto.response.ApiResponseDto;
+import fr.alexisvachard.authenticationpoc.web.dto.response.PagedResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,12 +29,12 @@ public class DashboardUsersService {
         this.pagedUserRepository = pagedUserRepository;
     }
 
-    public ResponseEntity<?> getUsers(int page, int size){
+    public ResponseEntity<?> getUsers(int page, int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<User> usersPage = pagedUserRepository.findAll(pageable);
 
-        if(usersPage.getContent().isEmpty()){
+        if (usersPage.getContent().isEmpty()) {
             return new ResponseEntity<>(new ApiResponseDto(false, "Unable to retrieve any user"), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -43,6 +43,6 @@ public class DashboardUsersService {
                 .map(UserDto::new)
                 .collect(Collectors.toList());
 
-        return new ResponseEntity<>(new PagedResponse(users, usersPage), HttpStatus.OK);
+        return new ResponseEntity<>(new PagedResponseDto(users, usersPage), HttpStatus.OK);
     }
 }

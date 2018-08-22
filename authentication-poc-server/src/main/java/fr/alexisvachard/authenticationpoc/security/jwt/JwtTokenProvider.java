@@ -2,7 +2,7 @@ package fr.alexisvachard.authenticationpoc.security.jwt;
 
 import fr.alexisvachard.authenticationpoc.config.properties.JwtProperties;
 import fr.alexisvachard.authenticationpoc.security.user.UserPrincipal;
-import fr.alexisvachard.authenticationpoc.web.common.dto.auth.LoginRequestDto;
+import fr.alexisvachard.authenticationpoc.web.dto.request.LoginRequestDto;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

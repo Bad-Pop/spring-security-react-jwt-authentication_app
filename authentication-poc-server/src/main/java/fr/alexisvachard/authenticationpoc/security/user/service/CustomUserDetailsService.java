@@ -1,8 +1,8 @@
 package fr.alexisvachard.authenticationpoc.security.user.service;
 
 import fr.alexisvachard.authenticationpoc.exception.ResourceNotFoundException;
-import fr.alexisvachard.authenticationpoc.model.User;
-import fr.alexisvachard.authenticationpoc.repository.UserRepository;
+import fr.alexisvachard.authenticationpoc.persistence.model.User;
+import fr.alexisvachard.authenticationpoc.persistence.repository.UserRepository;
 import fr.alexisvachard.authenticationpoc.security.user.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

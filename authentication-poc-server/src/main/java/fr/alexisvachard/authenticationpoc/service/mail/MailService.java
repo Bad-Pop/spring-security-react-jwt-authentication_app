@@ -2,7 +2,7 @@ package fr.alexisvachard.authenticationpoc.service.mail;
 
 import fr.alexisvachard.authenticationpoc.config.properties.FrontProperties;
 import fr.alexisvachard.authenticationpoc.config.properties.MailProperties;
-import fr.alexisvachard.authenticationpoc.model.User;
+import fr.alexisvachard.authenticationpoc.persistence.model.User;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;

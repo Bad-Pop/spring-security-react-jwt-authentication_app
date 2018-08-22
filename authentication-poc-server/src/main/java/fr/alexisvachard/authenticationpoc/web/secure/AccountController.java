@@ -4,8 +4,8 @@ import com.google.zxing.WriterException;
 import fr.alexisvachard.authenticationpoc.config.properties.JwtProperties;
 import fr.alexisvachard.authenticationpoc.exception.AppException;
 import fr.alexisvachard.authenticationpoc.service.secure.AccountService;
-import fr.alexisvachard.authenticationpoc.web.secure.dto.account.EnableTwoFARequestDto;
-import fr.alexisvachard.authenticationpoc.web.secure.dto.account.UpdatePasswordRequestDto;
+import fr.alexisvachard.authenticationpoc.web.dto.request.EnableTwoFARequestDto;
+import fr.alexisvachard.authenticationpoc.web.dto.request.UpdatePasswordRequestDto;
 import freemarker.template.TemplateException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -53,8 +53,8 @@ public class AccountController {
     public ResponseEntity<?> enable2FAAuthentication(
             HttpServletRequest req,
             @RequestParam(name = "step", required = false) int step,
-            @RequestBody(required = false)EnableTwoFARequestDto enableTwoFARequestDto
-            ) throws AppException, WriterException, IOException {
+            @RequestBody(required = false) EnableTwoFARequestDto enableTwoFARequestDto
+    ) throws AppException, WriterException, IOException {
 
         String jwt = req.getHeader("authorization").substring(7);
         Claims claims = Jwts.parser().setSigningKey(jwtProperties.getSecret()).parseClaimsJws(jwt).getBody();
