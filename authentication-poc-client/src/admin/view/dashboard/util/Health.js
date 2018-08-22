@@ -20,7 +20,7 @@ class Health extends Component {
 
         this.interval = setInterval(() => {
             this.checkApiHealth()
-        }, 60000);
+        }, 300000);
     }
 
     componentDidMount(){

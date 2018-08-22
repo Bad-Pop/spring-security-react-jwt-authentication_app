@@ -21,7 +21,7 @@ class Metrics extends Component {
 
         this.interval = setInterval(() => {
             this.getMetrics()
-        }, 30000);
+        }, 60000);
     }
 
     componentDidMount(){
@@ -112,13 +112,13 @@ class Metrics extends Component {
                         <div>
                             <h6>API uptime</h6>
                             {this.getUptime()}
-                            <h6>Memory usage ({memUsage}%)</h6>
+                            <h6>JVM Memory usage ({memUsage}%)</h6>
                             <div className="progress">
                                 <div className="progress-bar bg-info text-dark" role="progressbar" style={{width: memUsage}} aria-valuenow={memUsage}
                                      aria-valuemin="0" aria-valuemax="100">
                                 </div>
                             </div>
-                            <h6>CPU usage ({cpuUsage}%)</h6>
+                            <h6>JVM CPU usage ({cpuUsage}%)</h6>
                             <div className="progress">
                                 <div className="progress-bar bg-info text-dark" role="progressbar" style={{width: cpuUsage}} aria-valuenow={cpuUsage}
                                      aria-valuemin="0" aria-valuemax="100">

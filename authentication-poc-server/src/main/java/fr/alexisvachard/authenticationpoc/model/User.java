@@ -46,7 +46,7 @@ public class User {
     @Column(columnDefinition = "DATE NOT NULL")
     private LocalDate accountCreationDate;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "user_id"),
