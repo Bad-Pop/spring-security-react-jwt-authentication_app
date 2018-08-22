@@ -119,7 +119,7 @@ class App extends Component {
                         {
                             localStorage.getItem(ADMIN_TOKEN)
                             ?
-                                <Route exact path='/admin/dashboard/:render(|index|httptrace|users)' render={(props) => (
+                                <Route exact path='/admin/dashboard/:render(|index|httptrace|users|metrics)' render={(props) => (
                                     <AdminDashboard {...props} showAlert={this.showAlert} isAuthenticated={this.isAuthenticated}/>
                                 )}/>
                             :

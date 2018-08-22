@@ -4,6 +4,8 @@ import {Nav, NavItem} from 'reactstrap';
 
 import Dashboard from './index/Dashboard';
 import Health from './util/Health';
+import Httptraces from './httptraces/Httptraces';
+import Metrics from "./util/Metrics";
 
 class AdminDashboard extends Component {
 
@@ -37,11 +39,11 @@ class AdminDashboard extends Component {
                     <Link to="/admin/dashboard/users" className="nav-link">Users</Link>
                 </NavItem>,
                 <NavItem key={3}>
-                    <Link to="/admin/dashboard/httptrace" className="nav-link">HTTP API Logs</Link>
+                    <Link to="/admin/dashboard/httptrace" className="nav-link">API HTTP Traces</Link>
                 </NavItem>
             ];
         } else if (this.props.match.params.render === "httptrace") {
-            render = <h2>TODO HTTPTRACE</h2>;
+            render = <Httptraces showAlert={this.props.showAlert}/>;
             menuItem = [
                 <NavItem key={1}>
                     <Link to="/admin/dashboard/index" className="nav-link">Dashboard</Link>
@@ -50,7 +52,7 @@ class AdminDashboard extends Component {
                     <Link to="/admin/dashboard/users" className="nav-link">Users</Link>
                 </NavItem>,
                 <NavItem key={3}>
-                    <Link to="/admin/dashboard/httptrace" className="nav-link active">HTTP API Logs</Link>
+                    <Link to="/admin/dashboard/httptrace" className="nav-link active">API HTTP Traces</Link>
                 </NavItem>
             ];
         } else if (this.props.match.params.render === "users") {
@@ -63,7 +65,20 @@ class AdminDashboard extends Component {
                     <Link to="/admin/dashboard/users" className="nav-link active">Users</Link>
                 </NavItem>,
                 <NavItem key={3}>
-                    <Link to="/admin/dashboard/httptrace" className="nav-link">HTTP API Logs</Link>
+                    <Link to="/admin/dashboard/httptrace" className="nav-link">API HTTP Traces</Link>
+                </NavItem>
+            ];
+        } else if (this.props.match.params.render === "metrics"){
+            render = <h2>TODO METRICS</h2>;
+            menuItem = [
+                <NavItem key={1}>
+                    <Link to="/admin/dashboard/index" className="nav-link">Dashboard</Link>
+                </NavItem>,
+                <NavItem key={2}>
+                    <Link to="/admin/dashboard/users" className="nav-link">Users</Link>
+                </NavItem>,
+                <NavItem key={3}>
+                    <Link to="/admin/dashboard/httptrace" className="nav-link">API HTTP Traces</Link>
                 </NavItem>
             ];
         }
@@ -75,9 +90,12 @@ class AdminDashboard extends Component {
                         <Nav vertical pills>
                             {menuItem}
                             <hr/>
-
-                            <Health showAlert={this.props.showAlert}/>
-
+                            <div className="">
+                                <Health showAlert={this.props.showAlert}/>
+                            </div>
+                            <div className="mt-4">
+                                <Metrics showAlert={this.props.showAlert}/>
+                            </div>
                         </Nav>
                     </div>
                     <div className="col-sm-12 col-md-9 col-lg-9 col-xl-9">

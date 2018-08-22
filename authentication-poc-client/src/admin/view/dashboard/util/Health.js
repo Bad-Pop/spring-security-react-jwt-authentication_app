@@ -17,6 +17,10 @@ class Health extends Component {
         super(props);
 
         this.checkApiHealth = this.checkApiHealth.bind(this);
+
+        this.interval = setInterval(() => {
+            this.checkApiHealth()
+        }, 60000);
     }
 
     componentDidMount(){
@@ -31,18 +35,17 @@ class Health extends Component {
                 showHealthLoading: false
             });
         }).catch(error => {
-            this.props.showAlert(error.message, "error");
+            this.props.showAlert("Unable to fetch API Health !", "error");
             this.setState({showHealthLoading: false});
         });
+
+
     }
 
     render(){
+
         let status = [];
-        let health;
-        let diskSpace;
-        let db;
-        let mail;
-        let dsUsage;
+        let health, diskSpace, db, mail, dsUsage;
 
         if(this.state.healthStatus.status){
             health = this.state.healthStatus.status;
@@ -50,6 +53,7 @@ class Health extends Component {
             db = this.state.healthStatus.details.db.status;
             mail = this.state.healthStatus.details.mail.status;
             dsUsage = ((this.state.healthStatus.details.diskSpace.details.total - this.state.healthStatus.details.diskSpace.details.free) / this.state.healthStatus.details.diskSpace.details.total) * 100;
+            dsUsage = Number((dsUsage).toFixed(2));
 
             if(health === "UP"){
                 status.push(<span key={1} className="badge badge-pill badge-success">API</span>);
@@ -76,28 +80,34 @@ class Health extends Component {
             }
 
             if(mail === "UP"){
-                status.push(<span key={3} className="badge badge-pill badge-success">Emails</span>);
+                status.push(<span key={4} className="badge badge-pill badge-success">Emails</span>);
             } else if (mail === "DOWN"){
-                status.push(<span key={3} className="badge badge-pill badge-warning">Emails</span>);
+                status.push(<span key={4} className="badge badge-pill badge-warning">Emails</span>);
             } else {
-                status.push(<span key={3} className="badge badge-pill badge-danger">Emails</span>);
+                status.push(<span key={4} className="badge badge-pill badge-danger">Emails</span>);
             }
 
             status.push(
-                <div key={4} className="mt-2">
-                    <h5>Disk usage (in %)</h5>
+                <div key={5} className="mt-2">
+                    <h6>Disk usage ({dsUsage} %)</h6>
                     <div className="progress">
                         <div className="progress-bar bg-info text-dark" role="progressbar" style={{width: dsUsage}} aria-valuenow={dsUsage}
-                             aria-valuemin="0" aria-valuemax="100">{dsUsage}%
+                             aria-valuemin="0" aria-valuemax="100">
                         </div>
                     </div>
                 </div>
-
             );
+        } else {
+            status.push(<span key={1} className="badge badge-pill badge-danger">API</span>);
+            status.push(<span key={2} className="badge badge-pill badge-danger">Disk Space</span>);
+            status.push(<span key={3} className="badge badge-pill badge-danger">Database</span>);
+            status.push(<span key={4} className="badge badge-pill badge-danger">Emails</span>);
         }
 
         return(
             <div>
+                <h4>Api Health</h4>
+                <hr/>
                 {
                     this.state.showHealthLoading
                         ?
@@ -107,10 +117,8 @@ class Health extends Component {
                         </div>
                         :
                         <div className="mt-3">
-                            <h4>Api Health</h4>
                             {status}
                         </div>
-
                 }
             </div>
         );

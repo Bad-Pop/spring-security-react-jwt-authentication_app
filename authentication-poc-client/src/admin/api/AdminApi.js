@@ -30,7 +30,48 @@ const sendRequest = (options) => {
 export function checkHealth(){
     return sendRequest({
        url: API_BASE_URL_ACTUATOR + "/health",
-        method: 'GET',
-        mode: 'cors'
+        method: 'GET'
+    });
+}
+
+export function getHttpTraces(){
+    return sendRequest({
+        url: API_BASE_URL_ACTUATOR + "/httptrace",
+        method: 'GET'
+    });
+}
+
+export function getApiUptime() {
+    return sendRequest({
+        url: API_BASE_URL_ACTUATOR + "/metrics/process.uptime",
+        method: 'GET'
+    })
+}
+
+export function getJvmMemUsed() {
+    return sendRequest({
+        url: API_BASE_URL_ACTUATOR + "/metrics/jvm.memory.used",
+        method: 'GET'
+    });
+}
+
+export function getJvmMemMax() {
+    return sendRequest({
+        url: API_BASE_URL_ACTUATOR + "/metrics/jvm.memory.max",
+        method: 'GET'
+    });
+}
+
+export function getCpuUsage() {
+    return sendRequest({
+        url: API_BASE_URL_ACTUATOR + "/metrics/system.cpu.usage",
+        method: 'GET'
+    });
+}
+
+export function getCpuCount() {
+    return sendRequest({
+        url: API_BASE_URL_ACTUATOR + "/metrics/system.cpu.count",
+        method: 'GET'
     });
 }
