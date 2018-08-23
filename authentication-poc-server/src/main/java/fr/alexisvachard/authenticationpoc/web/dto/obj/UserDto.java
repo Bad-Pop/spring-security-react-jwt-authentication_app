@@ -12,7 +12,7 @@ public class UserDto {
 
     private String username;
     private String email;
-    private LocalDate accountCreationDate;
+    private String accountCreationDate;
     private boolean isUsingTwoFA;
     List<String> roles;
 
@@ -24,7 +24,7 @@ public class UserDto {
     public UserDto(String username, String email, LocalDate accountCreationDate, boolean isUsingTwoFA, Set<Role> roles) {
         this.username = username;
         this.email = email;
-        this.accountCreationDate = accountCreationDate;
+        this.accountCreationDate = accountCreationDate.toString();
         this.isUsingTwoFA = isUsingTwoFA;
         this.roles = this.exctractRoles(roles);
     }
@@ -32,7 +32,7 @@ public class UserDto {
     public UserDto(User user) {
         this.username = user.getUsername();
         this.email = user.getEmail();
-        this.accountCreationDate = user.getAccountCreationDate();
+        this.accountCreationDate = user.getAccountCreationDate().toString();
         this.isUsingTwoFA = user.isUsingTwoFA();
         this.roles = this.exctractRoles(user.getRoles());
     }
@@ -64,12 +64,12 @@ public class UserDto {
         this.email = email;
     }
 
-    public LocalDate getAccountCreationDate() {
+    public String getAccountCreationDate() {
         return accountCreationDate;
     }
 
     public void setAccountCreationDate(LocalDate accountCreationDate) {
-        this.accountCreationDate = accountCreationDate;
+        this.accountCreationDate = accountCreationDate.toString();
     }
 
     public boolean isUsingTwoFA() {

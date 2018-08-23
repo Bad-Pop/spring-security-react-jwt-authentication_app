@@ -25,7 +25,7 @@ public class User {
     private Long id;
 
     @NotBlank
-    @Size(min = 4, max = 16)
+    @Size(min = 3, max = 16)
     private String username;
 
     @NaturalId

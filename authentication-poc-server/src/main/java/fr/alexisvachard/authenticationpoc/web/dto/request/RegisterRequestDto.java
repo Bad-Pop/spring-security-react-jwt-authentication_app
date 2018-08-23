@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 
 public class RegisterRequestDto {
 
-    @Size(min = 4, max = 16)
+    @Size(min = 3, max = 16)
     private String username;
 
     @NotBlank

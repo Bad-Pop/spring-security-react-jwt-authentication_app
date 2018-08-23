@@ -26,7 +26,7 @@ class Httptraces extends Component {
     }
 
     componentDidMount() {
-        document.title = "HTTP API Logs";
+        document.title = "API HTTP Traces";
         this.getHttpTraces();
     }
 
@@ -138,8 +138,7 @@ class Httptraces extends Component {
 
         return (
             <div>
-                <h1>the last 100 requests <span className="text-muted" style={{fontSize: 11}}>made to the API</span>
-                </h1>
+                <h1>the last 100 requests <span className="text-muted" style={{fontSize: 11}}>made to the API</span></h1>
                 <hr/>
                 {
                     this.state.showLoading

@@ -12,10 +12,6 @@ class Dashboard extends Component{
             <div>
                 <h1>Dashboard <span className="text-muted" style={{fontSize: 11}}>Statistcs</span></h1>
                 <hr/>
-                <p>
-                    //TODO TOTAL USER
-                    //TODO TOTAL NEW USER TODAY
-                </p>
             </div>
         );
     }

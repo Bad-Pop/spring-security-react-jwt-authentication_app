@@ -1,4 +1,4 @@
-import {ACCESS_TOKEN, API_BASE_URL_ACTUATOR} from "../../config/Config";
+import {ACCESS_TOKEN, API_BASE_URL_ACTUATOR, API_BASE_URL} from "../../config/Config";
 
 const sendRequest = (options) => {
     const headers = new Headers({
@@ -74,4 +74,20 @@ export function getCpuCount() {
         url: API_BASE_URL_ACTUATOR + "/metrics/system.cpu.count",
         method: 'GET'
     });
+}
+
+export function getPageUsers(pageable){
+
+    if(pageable){
+        return sendRequest({
+            url: API_BASE_URL + "/secure/admin/dashboard/users?page=" + pageable.pageNumber,
+            method: 'GET'
+        });
+    } else {
+        return sendRequest({
+            url: API_BASE_URL + "/secure/admin/dashboard/users?page=0",
+            method: 'GET'
+        });
+    }
+
 }
