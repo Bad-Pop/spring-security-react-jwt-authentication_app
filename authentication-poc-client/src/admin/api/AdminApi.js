@@ -76,11 +76,11 @@ export function getCpuCount() {
     });
 }
 
-export function getPageUsers(pageable){
+export function getPageUsers(pageNumber){
 
-    if(pageable){
+    if(pageNumber){
         return sendRequest({
-            url: API_BASE_URL + "/secure/admin/dashboard/users?page=" + pageable.pageNumber,
+            url: API_BASE_URL + "/secure/admin/dashboard/users?page=" + pageNumber,
             method: 'GET'
         });
     } else {

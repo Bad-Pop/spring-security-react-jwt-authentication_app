@@ -29,7 +29,7 @@ class Users extends Component{
             pageNumber: 0
         };
         this.setState({showLoading: true});
-        getPageUsers(defaultPageable).then(res => {
+        getPageUsers(0).then(res => {
             this.setState({
                 pagedResponse: res,
                 users: res.content,

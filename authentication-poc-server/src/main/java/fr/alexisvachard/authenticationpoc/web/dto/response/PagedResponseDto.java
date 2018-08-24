@@ -1,6 +1,7 @@
 package fr.alexisvachard.authenticationpoc.web.dto.response;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -8,53 +9,48 @@ import java.util.List;
 public class PagedResponseDto {
 
     private List<?> content;
-    private Long offset;
-    private int pageNumber;
     private int pageSize;
-    private boolean lastPage;
-    private Long totalElement;
-    private int totalPages;
-    private int size;
-    private int number;
-    private int numberOfElements;
-    private boolean firstPage;
+    private boolean isLastPage;
+    private Long totalNumberOfElements;
+    private int totalNumberOfPages;
+    private int pageNumber;
+    private int pageNumberOfElements;
+    private boolean isFirstPage;
 
+    private Pageable currentPageable;
     private Pageable previousPageable;
     private Pageable nextPageable;
 
     public PagedResponseDto() {
     }
 
-    public PagedResponseDto(List<?> content, Long offset, int pageNumber, int pageSize, boolean lastPage, Long totalElement, int totalPages, int size, int number, int numberOfElements, boolean firstPage, Pageable previousPageable, Pageable nextPageable) {
+    public PagedResponseDto(List<?> content, int pageSize, boolean isLastPage, Long totalNumberOfElements, int totalNumberOfPages, int pageNumber, int pageNumberOfElements, boolean isFirstPage, Pageable currentPageable, Pageable previousPageable, Pageable nextPageable) {
         this.content = content;
-        this.offset = offset;
-        this.pageNumber = pageNumber;
         this.pageSize = pageSize;
-        this.lastPage = lastPage;
-        this.totalElement = totalElement;
-        this.totalPages = totalPages;
-        this.size = size;
-        this.number = number;
-        this.numberOfElements = numberOfElements;
-        this.firstPage = firstPage;
+        this.isLastPage = isLastPage;
+        this.totalNumberOfElements = totalNumberOfElements;
+        this.totalNumberOfPages = totalNumberOfPages;
+        this.pageNumber = pageNumber;
+        this.pageNumberOfElements = pageNumberOfElements;
+        this.isFirstPage = isFirstPage;
         this.previousPageable = previousPageable;
         this.nextPageable = nextPageable;
+        this.currentPageable = currentPageable;
     }
 
     public PagedResponseDto(List<?> content, Page<?> page) {
         this.content = content;
-        this.offset = page.getPageable().getOffset();
-        this.pageNumber = page.getPageable().getPageNumber();
         this.pageSize = page.getPageable().getPageSize();
-        this.lastPage = page.isLast();
-        this.totalElement = page.getTotalElements();
-        this.totalPages = page.getTotalPages();
-        this.size = page.getSize();
-        this.number = page.getNumber();
-        this.numberOfElements = page.getNumberOfElements();
-        this.firstPage = page.isFirst();
+        this.isLastPage = page.isLast();
+        this.totalNumberOfElements = page.getTotalElements();
+        this.totalNumberOfPages = page.getTotalPages();
+        this.pageNumber = page.getNumber();
+        this.pageNumberOfElements = page.getNumberOfElements();
+        this.isFirstPage = page.isFirst();
         this.previousPageable = page.previousPageable();
         this.nextPageable = page.nextPageable();
+
+        this.currentPageable = page.getPageable();
     }
 
     public List<?> getContent() {
@@ -63,22 +59,6 @@ public class PagedResponseDto {
 
     public void setContent(List<?> content) {
         this.content = content;
-    }
-
-    public Long getOffset() {
-        return offset;
-    }
-
-    public void setOffset(Long offset) {
-        this.offset = offset;
-    }
-
-    public int getPageNumber() {
-        return pageNumber;
-    }
-
-    public void setPageNumber(int pageNumber) {
-        this.pageNumber = pageNumber;
     }
 
     public int getPageSize() {
@@ -90,59 +70,59 @@ public class PagedResponseDto {
     }
 
     public boolean isLastPage() {
-        return lastPage;
+        return isLastPage;
     }
 
     public void setLastPage(boolean lastPage) {
-        this.lastPage = lastPage;
+        this.isLastPage = lastPage;
     }
 
-    public Long getTotalElement() {
-        return totalElement;
+    public Long getTotalNumberOfElements() {
+        return totalNumberOfElements;
     }
 
-    public void setTotalElement(Long totalElement) {
-        this.totalElement = totalElement;
+    public void setTotalNumberOfElements(Long totalNumberOfElements) {
+        this.totalNumberOfElements = totalNumberOfElements;
     }
 
-    public int getTotalPages() {
-        return totalPages;
+    public int getTotalNumberOfPages() {
+        return totalNumberOfPages;
     }
 
-    public void setTotalPages(int totalPages) {
-        this.totalPages = totalPages;
+    public void setTotalNumberOfPages(int totalNumberOfPages) {
+        this.totalNumberOfPages = totalNumberOfPages;
     }
 
-    public int getSize() {
-        return size;
+    public int getPageNumber() {
+        return pageNumber;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int getNumberOfElements() {
-        return numberOfElements;
-    }
-
-    public void setNumberOfElements(int numberOfElements) {
-        this.numberOfElements = numberOfElements;
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
     }
 
     public boolean isFirstPage() {
-        return firstPage;
+        return isFirstPage;
     }
 
     public void setFirstPage(boolean firstPage) {
-        this.firstPage = firstPage;
+        this.isFirstPage = firstPage;
+    }
+
+    public int getPageNumberOfElements() {
+        return pageNumberOfElements;
+    }
+
+    public void setPageNumberOfElements(int pageNumberOfElements) {
+        this.pageNumberOfElements = pageNumberOfElements;
+    }
+
+    public Pageable getCurrentPageable() {
+        return currentPageable;
+    }
+
+    public void setCurrentPageable(Pageable currentPageable) {
+        this.currentPageable = currentPageable;
     }
 
     public Pageable getPreviousPageable() {

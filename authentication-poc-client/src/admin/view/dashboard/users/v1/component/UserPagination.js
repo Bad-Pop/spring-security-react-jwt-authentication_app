@@ -7,6 +7,14 @@ class UserPagination extends Component {
         pagination: {}
     };
 
+
+
+
+
+
+
+
+
     constructor(props) {
         super(props);
 
@@ -47,8 +55,8 @@ class UserPagination extends Component {
         });
     }
 
-    onPageChange = (pageable) => {
-        this.props.handleChangePage(pageable);
+    onPageChange = (pageNumber) => {
+        this.props.handleChangePage(pageNumber);
     };
 
     goToFirstPage() {
@@ -61,7 +69,7 @@ class UserPagination extends Component {
             pageSize: 10,
             pageNumber: 0
         };
-        this.onPageChange(firstPage);
+        this.onPageChange(firstPage.pageNumber);
     }
 
     goToLastPage() {
@@ -73,33 +81,21 @@ class UserPagination extends Component {
             pageSize: 10,
             pageNumber: this.state.pagination.totalPages - 1
         };
-        this.onPageChange(lastPage);
+        this.onPageChange(lastPage.pageNumber);
     }
 
     goToPreviousPage() {
         const previousPage = this.state.pagination.previousPageable;
         if (previousPage !== "INSTANCE") {
-            this.onPageChange(previousPage);
+            this.onPageChange(previousPage.pageNumber);
         }
     }
 
     goToNextPage() {
         const nextPage = this.state.pagination.nextPageable;
         if (nextPage !== "INSTANCE") {
-            this.onPageChange(nextPage);
+            this.onPageChange(nextPage.pageNumber);
         }
-    }
-
-    getPagesNumberButtons(){
-        let pages = [];
-        if (this.state.pagination) {
-            pages.push(
-                <li key={1} className="page-item active">
-                    <p className="page-link">{this.state.pagination.currentPageable.pageNumber}</p>
-                </li>
-            );
-        }
-        return pages;
     }
 
     render() {
@@ -113,7 +109,6 @@ class UserPagination extends Component {
                     <li className="page-item" onClick={this.goToPreviousPage}>
                         <p className="page-link">Prev</p>
                     </li>
-                    {this.getPagesNumberButtons}
                     <li id="nextPage" className="page-item" onClick={this.goToNextPage}>
                         <p className="page-link">Next</p>
                     </li>

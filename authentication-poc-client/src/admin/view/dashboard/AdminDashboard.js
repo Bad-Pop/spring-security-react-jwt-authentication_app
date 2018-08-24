@@ -6,7 +6,7 @@ import Dashboard from './index/Dashboard';
 import Health from './util/Health';
 import Httptraces from './httptraces/Httptraces';
 import Metrics from "./util/Metrics";
-import Users from "./users/v1/Users";
+import Users from "./users/v3/Users";
 
 class AdminDashboard extends Component {
 
@@ -74,7 +74,7 @@ class AdminDashboard extends Component {
         return (
             <div className="container">
                 <div className="row pt-5">
-                    <div className="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <div className="col-sm-12 col-md-12 col-lg-12 col-xl-2">
                         <Nav vertical pills>
                             {menuItem}
                             <hr/>
@@ -86,7 +86,7 @@ class AdminDashboard extends Component {
                             </div>
                         </Nav>
                     </div>
-                    <div className="col-sm-12 col-md-9 col-lg-9 col-xl-9">
+                    <div className="col-sm-12 col-md-12 col-lg-12 col-xl-10">
                         {render}
                     </div>
                 </div>
