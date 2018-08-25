@@ -5,23 +5,24 @@ import {Modal, ModalBody, ModalHeader} from 'reactstrap';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 
-class UserTableLine extends Component {
-
-    state = {
-        showModalUserInfo: false,
-        user: {}
-    };
+class UserGridLine extends Component {
 
     constructor(props) {
         super(props);
 
+        this.state = {
+            showModalUserInfo: false,
+            user: props.user
+        };
+
         this.toggle = this.toggle.bind(this);
     }
 
-    componentDidMount() {
-        this.setState({
-            user: this.props.user
-        });
+    static getDerivedStateFromProps(props, state) {
+
+        const user = props.user;
+        state.user = user;
+        return state;
     }
 
     toggle() {
@@ -88,4 +89,4 @@ class UserTableLine extends Component {
     }
 }
 
-export default withRouter(UserTableLine)
+export default withRouter(UserGridLine)

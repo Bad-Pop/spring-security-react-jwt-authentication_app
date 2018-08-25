@@ -18,7 +18,7 @@ public class DashboardUsersController {
     @GetMapping
     public ResponseEntity<?> getUsers(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size
+            @RequestParam(value = "size", defaultValue = "8") int size
     ) {
         return dashboardUsersService.getUsers(page, size);
     }

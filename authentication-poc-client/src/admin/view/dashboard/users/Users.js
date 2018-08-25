@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
-import {getPageUsers} from "../../../../api/AdminApi";
+import {getPageUsers} from "../../../api/AdminApi";
 import UserGrid from "./UserGrid";
-import UserPagination from "./UserPagination";
+import Pagination from "../../../../generic/pagination/Pagination";
 
 class Users extends Component {
 
@@ -24,12 +24,12 @@ class Users extends Component {
     }
 
     componentDidMount() {
-        this.loadData();
+        this.loadData(0);
     }
 
-    // componentDidUpdate(){
-    //     this.loadData();
-    // }
+    componentDidUpdate(){
+        this.render();
+    }
 
     setStatePromise(newState) {
         return new Promise((resolve) => {
@@ -46,9 +46,9 @@ class Users extends Component {
         });
     }
 
-    loadData() {
-        const {currentPage} = this.state;
-        getPageUsers(currentPage)
+    loadData(page) {
+        this.setState({loading: true});
+        getPageUsers(page)
             .then(res => {
 
                 let content = [];
@@ -69,14 +69,16 @@ class Users extends Component {
                     content.push(user);
                 }
 
-                this.setState({
+                this.setStatePromise({
                     content: content,
                     page: res,
                     currentPage: res.pageNumber,
                     totalNumberOfElements: res.totalNumberOfElements,
                     pageSize: res.pageSize,
                     loading: false
-                })
+                }).then(() => {
+                    this.forceUpdate();
+                });
             }).catch(error => {
             if (error.message && error.success === false) {
                 this.props.showAlert(error.message, "error");
@@ -106,8 +108,14 @@ class Users extends Component {
                     <hr/>
 
                     <UserGrid showAlert={this.props.showAlert} content={content}/>
-                    <UserPagination showAlert={this.props.showAlert} page={page} pageSize={pageSize}
-                                    currentPage={currentPage} totalNumberOfElements={totalNumberOfElements}/>
+                    <Pagination
+                        showAlert={this.props.showAlert}
+                        page={page}
+                        pageSize={pageSize}
+                        currentPage={currentPage}
+                        totalNumberOfElements={totalNumberOfElements}
+                        handleChangePage={this.loadData}
+                    />
                 </div>
             );
         }

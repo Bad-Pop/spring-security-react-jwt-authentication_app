@@ -6,7 +6,7 @@ import Dashboard from './index/Dashboard';
 import Health from './util/Health';
 import Httptraces from './httptraces/Httptraces';
 import Metrics from "./util/Metrics";
-import Users from "./users/v3/Users";
+import Users from "./users/Users";
 
 class AdminDashboard extends Component {
 
