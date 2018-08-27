@@ -14,7 +14,7 @@ import './assets/css/material-icons.css';
 import 'noty/lib/noty.css'
 import './assets/css/noty.css'
 
-import App from './app/App';
+import App from './App';
 
 library.add(fab);
 
