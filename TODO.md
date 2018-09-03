@@ -1,0 +1,10 @@
+- public profil for users
+- change email adress
+- change username
+- add user bio
+- add user web site url
+- add user social links (twitter, facebook, steam, instagram, twitch, github, ...)
+- add user location
+- account deletion
+- newsletter + Email notification preferences
+- account security : history
